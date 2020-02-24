@@ -3,38 +3,39 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export const Container = styled.div`
   display: flex;
-  height: 85px;
-  margin: 10px 0;
+  width: 1300px;
+  height: 800px;
 `
-
 export const CoverPage = styled.div`
-  width: 75px;
-  margin-right: 10px;
-`
-
-export const Image = styled.img`
-  width: inherit;
-  height: 100%;
-  border-radius: 5px;
-`
-
-export const Content = styled.div`
+  display: flex;
   flex: 1;
 `
 
-export const Header = styled.div`
+export const Image = styled.img`
+  width: 100%;
+  height: 100%;
+`
+
+export const Content = styled.div`
+  margin-left: 30px;
+  flex: 1;
+`
+
+export const Title = styled.h1`
+  margin: 0 0 50px 0;
+`
+
+export const ComicInfo = styled.div`
+  margin: 50px 0;
   display: flex;
-  align-items: center;
+  flex-flow: column;
 `
 
-export const Title = styled.h5`
-  margin: 0 5px 0 0;
-`
-
-export const StarIcon = styled(FontAwesomeIcon)`
-  color: grey;
+export const Data = styled.span`
+  font-size: 20px;
+  font-weight: bold;
 `
 
 export const Description = styled.p`
-  font-size: 12px;
+  font-size: 23px;
 `

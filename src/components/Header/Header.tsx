@@ -11,9 +11,9 @@ export const Header = (): JSX.Element => (
     </Styled.LogoContainer>
     <Styled.Divider />
     <Styled.InputContainer>
-      <Styled.StyledFAIcon size="lg" icon={faSearch} />
+      <Styled.StyledSearchIcon size="lg" icon={faSearch} />
       <Styled.Input type="text" placeholder="Buscar" />
-      <Styled.StyledFAIcon size="lg" icon={faStar} />
+      <Styled.StyledStarIcon size="lg" icon={faStar} />
     </Styled.InputContainer>
     <Styled.Divider height="25px" />
   </Styled.Container>

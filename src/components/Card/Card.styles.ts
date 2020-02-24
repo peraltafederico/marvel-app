@@ -15,7 +15,7 @@ export const Container = styled.div<Container>`
   border-radius: 5px;
 `
 
-export const Favourite = styled(FontAwesomeIcon)`
+export const StyledStarIcon = styled(FontAwesomeIcon)`
   color: white;
   position: absolute;
   top: 15px;

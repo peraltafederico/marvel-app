@@ -6,7 +6,7 @@ const background = 'http://i.annihil.us/u/prod/marvel/i/mg/c/e0/535fecbbb9784/po
 
 export const Card = (): JSX.Element => (
   <Styled.Container background={background}>
-    <Styled.Favourite icon={faStar} />
+    <Styled.StyledStarIcon icon={faStar} />
     <Styled.Title>MY NAME</Styled.Title>
   </Styled.Container>
 )

@@ -20,7 +20,12 @@ export const InputContainer = styled.div`
   width: 100%;
 `
 
-export const StyledFAIcon = styled(FontAwesomeIcon)`
+export const StyledSearchIcon = styled(FontAwesomeIcon)`
+  color: rgba(0, 0, 0, 0.1);
+  padding: 10px;
+`
+
+export const StyledStarIcon = styled(FontAwesomeIcon)`
   color: rgba(0, 0, 0, 0.1);
   padding: 10px;
 `

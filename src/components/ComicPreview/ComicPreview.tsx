@@ -9,12 +9,12 @@ export const ComicPreview = (): JSX.Element => (
     <Styled.CoverPage>
       <Styled.Image src={img} />
     </Styled.CoverPage>
-    <Styled.Summary>
+    <Styled.Content>
       <Styled.Header>
         <Styled.Title>Title</Styled.Title>
         <Styled.StarIcon icon={faStar} />
       </Styled.Header>
       <Styled.Description>asdsaopdmsaopdmsap</Styled.Description>
-    </Styled.Summary>
+    </Styled.Content>
   </Styled.Container>
 )

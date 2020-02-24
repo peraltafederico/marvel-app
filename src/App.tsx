@@ -1,11 +1,11 @@
 import React from 'react'
 import GlobalStyles from './globalStyles'
-import { ComicSummary } from './components/ComicSummary'
+import { SearchPage } from './containers/SearchPage'
 
 const App = (): JSX.Element => (
   <>
     <GlobalStyles />
-    <ComicSummary />
+    <SearchPage />
   </>
 )
 

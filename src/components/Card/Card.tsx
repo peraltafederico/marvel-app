@@ -21,7 +21,7 @@ export const Card = ({ favourite, onClickImage, onClickFavourite }: Card): JSX.E
 
   return (
     <Styled.Container onClick={(): void => onClickImage()} background={background}>
-      <Styled.StyledStarIcon
+      <Styled.StarIcon
         onClick={(): void => handleOnClickFavourite()}
         icon={selected ? faStarSolid : faStarRegular}
       />

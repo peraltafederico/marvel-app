@@ -2,7 +2,7 @@ import React from 'react'
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import GlobalStyles from './globalStyles'
 import { SearchPage } from './containers/SearchPage'
-import { Layout } from './containers/Layout'
+import { ComicPage } from './containers/ComicPage'
 
 const App = (): JSX.Element => (
   <>
@@ -10,7 +10,7 @@ const App = (): JSX.Element => (
     <Router>
       <Switch>
         <Route path="/comic">
-          <Layout />
+          <ComicPage />
         </Route>
         <Route path="/search">
           <SearchPage />

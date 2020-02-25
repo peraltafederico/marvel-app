@@ -18,7 +18,7 @@ export const Container = styled.div<Container>`
   }
 `
 
-export const StyledStarIcon = styled(FontAwesomeIcon)`
+export const StarIcon = styled(FontAwesomeIcon)`
   color: white;
   position: absolute;
   top: 15px;

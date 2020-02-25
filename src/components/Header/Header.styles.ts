@@ -25,12 +25,12 @@ export const InputContainer = styled.div`
   width: 100%;
 `
 
-export const StyledSearchIcon = styled(FontAwesomeIcon)`
+export const SearchIcon = styled(FontAwesomeIcon)`
   color: rgba(0, 0, 0, 0.1);
   padding: 10px;
 `
 
-export const StyledStarIcon = styled(FontAwesomeIcon)`
+export const StarIcon = styled(FontAwesomeIcon)`
   color: rgba(0, 0, 0, 0.1);
   padding: 10px;
   &:hover {

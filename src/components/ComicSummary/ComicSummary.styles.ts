@@ -2,8 +2,8 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
   display: flex;
-  width: 1300px;
-  height: 800px;
+  width: 100%;
+  height: 750px;
 `
 export const CoverPage = styled.div`
   display: flex;

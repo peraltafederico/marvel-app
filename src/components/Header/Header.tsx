@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { faStar as faStarSolid, faSearch } from '@fortawesome/free-solid-svg-icons'
 import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons'
+import { Link } from 'react-router-dom'
 import logo from '../../assets/logo.png'
 import * as Styled from './Header.styles'
 
@@ -19,13 +20,15 @@ export const Header = ({ onClick }: Header): JSX.Element => {
   return (
     <Styled.Container>
       <Styled.LogoContainer>
-        <Styled.Logo src={logo} alt="Logo" />
+        <Link to="/">
+          <Styled.Logo src={logo} alt="Logo" />
+        </Link>
       </Styled.LogoContainer>
       <Styled.Divider />
       <Styled.InputContainer>
-        <Styled.StyledSearchIcon size="lg" icon={faSearch} />
+        <Styled.SearchIcon size="lg" icon={faSearch} />
         <Styled.Input type="text" placeholder="Buscar" />
-        <Styled.StyledStarIcon
+        <Styled.StarIcon
           size="lg"
           onClick={(): void => handleOnClick()}
           icon={selected ? faStarSolid : faStarRegular}

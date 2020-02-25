@@ -1,15 +1,6 @@
 import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-// TODO: style scroll bar
-
-export const Container = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-`
-
 export const Backdrop = styled.div`
   position: fixed;
   top: 0px;
@@ -20,15 +11,28 @@ export const Backdrop = styled.div`
 `
 
 export const Modal = styled.div`
+  position: absolute;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
   display: flex;
   flex-flow: column;
   width: 437px;
   height: 448px;
   border-radius: 10px;
-  overflow: auto;
   padding: 0 15px 15px;
   background-color: white;
-  z-index: 99;
+  z-index: 999;
+  overflow: auto;
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: black;
+    border-radius: 15px;
+  }
 `
 
 export const Header = styled.div`
@@ -36,7 +40,7 @@ export const Header = styled.div`
   flex-flow: column;
   position: fixed;
   width: 437px;
-  z-index: 999;
+  z-index: 999999;
   background-color: white;
   padding: 9px 5px 15px 0;
   box-sizing: border-box;
@@ -44,6 +48,9 @@ export const Header = styled.div`
 
 export const CloseIcon = styled(FontAwesomeIcon)`
   align-self: flex-end;
+  &:hover {
+    cursor: pointer;
+  }
 `
 
 export const Title = styled.h2`

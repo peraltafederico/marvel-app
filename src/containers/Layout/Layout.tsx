@@ -8,7 +8,7 @@ interface Layout {
 
 export const Layout: FC<Layout> = ({ children }: Layout): JSX.Element => (
   <>
-    <Header />
+    <Header onClick={(): void => {}} />
     <Styled.ContentContainer>
       <Styled.Content>{children}</Styled.Content>
     </Styled.ContentContainer>

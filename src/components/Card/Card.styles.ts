@@ -20,6 +20,9 @@ export const StyledStarIcon = styled(FontAwesomeIcon)`
   position: absolute;
   top: 15px;
   right: 15px;
+  &:hover {
+    cursor: pointer;
+  }
 `
 
 export const Title = styled.h3`

@@ -38,7 +38,8 @@ export const Modal = styled.div`
 export const Header = styled.div`
   display: flex;
   flex-flow: column;
-  position: fixed;
+  position: sticky;
+  top: 0;
   width: 437px;
   z-index: 999999;
   background-color: white;
@@ -58,6 +59,5 @@ export const Title = styled.h2`
 `
 
 export const Content = styled.div`
-  margin-top: 60px;
   flex: 1;
 `

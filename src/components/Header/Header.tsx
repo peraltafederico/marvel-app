@@ -7,12 +7,14 @@ import * as Styled from './Header.styles'
 
 interface Header {
   onClick: () => void
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
+  value: string
 }
 
-export const Header = ({ onClick }: Header): JSX.Element => {
+export const Header = ({ onClick, onChange, value }: Header): JSX.Element => {
   const [selected, setSelected] = useState(false)
 
-  const handleOnClick = (): void => {
+  const handleClick = (): void => {
     setSelected(!selected)
     onClick()
   }
@@ -27,10 +29,10 @@ export const Header = ({ onClick }: Header): JSX.Element => {
       <Styled.Divider />
       <Styled.InputContainer>
         <Styled.SearchIcon size="lg" icon={faSearch} />
-        <Styled.Input type="text" placeholder="Buscar" />
+        <Styled.Input onChange={onChange} value={value} type="text" placeholder="Buscar" />
         <Styled.StarIcon
           size="lg"
-          onClick={(): void => handleOnClick()}
+          onClick={(): void => handleClick()}
           icon={selected ? faStarSolid : faStarRegular}
         />
       </Styled.InputContainer>

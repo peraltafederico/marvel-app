@@ -19,16 +19,15 @@ export const SearchPage = (): JSX.Element => {
     history.push('/comic')
   }
 
-  const findRandomCharacters = async (): Promise<void> => {
-    const offset = Math.floor(Math.random() * 1400 + 1)
-    const { data } = await axios.get(`/characters?&limit=8&offset=${offset}`)
-    const characters = parseMarvelResponse(data)
-
-    setCharacters(characters)
-    setFetching(false)
-  }
-
   useEffect(() => {
+    const findRandomCharacters = async (): Promise<void> => {
+      const offset = Math.floor(Math.random() * 1400 + 1)
+      const { data } = await axios.get(`/characters?&limit=8&offset=${offset}`)
+      const characters = parseMarvelResponse(data)
+      setCharacters(characters)
+      setFetching(false)
+    }
+
     findRandomCharacters()
   }, [])
 

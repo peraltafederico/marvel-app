@@ -33,6 +33,9 @@ export const StyledSearchIcon = styled(FontAwesomeIcon)`
 export const StyledStarIcon = styled(FontAwesomeIcon)`
   color: rgba(0, 0, 0, 0.1);
   padding: 10px;
+  &:hover {
+    cursor: pointer;
+  }
 `
 
 export const Input = styled.input`

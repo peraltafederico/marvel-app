@@ -33,6 +33,9 @@ export const Title = styled.h5`
 
 export const StarIcon = styled(FontAwesomeIcon)`
   color: grey;
+  &:hover {
+    cursor: pointer;
+  }
 `
 
 export const Description = styled.p`

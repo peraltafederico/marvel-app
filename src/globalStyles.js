@@ -1,5 +1,7 @@
 import { createGlobalStyle } from 'styled-components'
 
+// TODO: hide scroll when modal appears
+
 const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
@@ -9,6 +11,7 @@ const GlobalStyle = createGlobalStyle`
       sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    /* overflow: hidden; */
   }
   code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",

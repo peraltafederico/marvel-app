@@ -4,21 +4,20 @@ import * as Styled from './Modal.styles'
 
 interface Modal {
   children?: React.ReactNode
+  onClose: () => void
 }
 
-export const Modal: FC<Modal> = ({ children }: Modal): JSX.Element => {
+export const Modal: FC<Modal> = ({ children, onClose }: Modal): JSX.Element => {
   return (
     <>
-      <Styled.Container>
-        <Styled.Backdrop />
-        <Styled.Modal>
-          <Styled.Header>
-            <Styled.CloseIcon icon={faTimes} />
-            <Styled.Title>Title</Styled.Title>
-          </Styled.Header>
-          <Styled.Content>{children}</Styled.Content>
-        </Styled.Modal>
-      </Styled.Container>
+      <Styled.Backdrop onClick={(): void => onClose()} />
+      <Styled.Modal>
+        <Styled.Header>
+          <Styled.CloseIcon onClick={(): void => onClose()} icon={faTimes} />
+          <Styled.Title>Title</Styled.Title>
+        </Styled.Header>
+        <Styled.Content>{children}</Styled.Content>
+      </Styled.Modal>
     </>
   )
 }

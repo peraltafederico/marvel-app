@@ -3,15 +3,21 @@ import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons'
 import { faStar as faStarSolid } from '@fortawesome/free-solid-svg-icons'
 import * as Styled from './Card.styles'
 
-const background = 'http://i.annihil.us/u/prod/marvel/i/mg/c/e0/535fecbbb9784/portrait_xlarge.jpg'
-
 interface Card {
   favourite?: boolean
+  background: string
+  title: string
   onClickImage: () => void
   onClickFavourite: () => void
 }
 
-export const Card = ({ favourite, onClickImage, onClickFavourite }: Card): JSX.Element => {
+export const Card = ({
+  favourite,
+  onClickImage,
+  onClickFavourite,
+  background,
+  title,
+}: Card): JSX.Element => {
   const [selected, setSelected] = useState(favourite)
 
   const handleOnClickFavourite = (): void => {
@@ -20,12 +26,12 @@ export const Card = ({ favourite, onClickImage, onClickFavourite }: Card): JSX.E
   }
 
   return (
-    <Styled.Container onClick={(): void => onClickImage()} background={background}>
+    <Styled.Container background={background}>
       <Styled.StarIcon
         onClick={(): void => handleOnClickFavourite()}
         icon={selected ? faStarSolid : faStarRegular}
       />
-      <Styled.Title>MY NAME</Styled.Title>
+      <Styled.Title onClick={(): void => onClickImage()}>{title.toUpperCase()}</Styled.Title>
     </Styled.Container>
   )
 }

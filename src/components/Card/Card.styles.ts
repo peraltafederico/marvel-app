@@ -13,9 +13,6 @@ export const Container = styled.div<Container>`
   height: 380px;
   position: relative;
   border-radius: 5px;
-  &:hover {
-    cursor: pointer;
-  }
 `
 
 export const StarIcon = styled(FontAwesomeIcon)`
@@ -33,4 +30,7 @@ export const Title = styled.h3`
   position: absolute;
   bottom: 0px;
   left: 15px;
+  &:hover {
+    cursor: pointer;
+  }
 `

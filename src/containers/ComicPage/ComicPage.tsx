@@ -2,11 +2,11 @@ import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { Layout } from '../Layout'
 import { Card } from '../../components/Card'
-import { StyledCardContainer } from './SearchPage.styles'
+import { StyledCardContainer } from './ComicPage.styles'
 import { Modal } from '../../components/Modal'
 import { ComicPreview } from '../../components/ComicPreview'
 
-export const SearchPage = (): JSX.Element => {
+export const ComicPage = (): JSX.Element => {
   const [showModal, setShowModal] = useState(false)
   const history = useHistory()
 

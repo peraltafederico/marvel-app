@@ -7,18 +7,24 @@ const img = 'http://i.annihil.us/u/prod/marvel/i/mg/c/80/5e3d7536c8ada/portrait_
 
 interface ComicPreview {
   favourite?: boolean
-  onClick: () => void
+  onClickImage: () => void
+  onClickFavourite: () => void
 }
 
-export const ComicPreview = ({ favourite, onClick }: ComicPreview): JSX.Element => {
+export const ComicPreview = ({
+  favourite,
+  onClickImage,
+  onClickFavourite,
+}: ComicPreview): JSX.Element => {
   const [selected, setSelected] = useState(favourite)
 
-  const handleOnClick = (): void => {
+  const handleOnClickFavourite = (): void => {
     setSelected(!selected)
-    onClick()
+    onClickFavourite()
   }
+
   return (
-    <Styled.Container>
+    <Styled.Container onClick={(): void => onClickImage()}>
       <Styled.CoverPage>
         <Styled.Image src={img} />
       </Styled.CoverPage>
@@ -26,7 +32,7 @@ export const ComicPreview = ({ favourite, onClick }: ComicPreview): JSX.Element 
         <Styled.Header>
           <Styled.Title>Title</Styled.Title>
           <Styled.StarIcon
-            onClick={(): void => handleOnClick()}
+            onClick={(): void => handleOnClickFavourite()}
             icon={selected ? faStarSolid : faStarRegular}
           />
         </Styled.Header>

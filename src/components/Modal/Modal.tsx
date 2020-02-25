@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import * as Styled from './Modal.styles'
 
@@ -8,6 +8,15 @@ interface Modal {
 }
 
 export const Modal: FC<Modal> = ({ children, onClose }: Modal): JSX.Element => {
+  const scrollToTop = (): void => {
+    document.body.scrollTop = 0
+    document.documentElement.scrollTop = 0
+  }
+
+  useEffect(() => {
+    scrollToTop()
+  }, [])
+
   return (
     <>
       <Styled.Backdrop onClick={(): void => onClose()} />

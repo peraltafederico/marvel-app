@@ -13,6 +13,9 @@ export const Container = styled.div<Container>`
   height: 380px;
   position: relative;
   border-radius: 5px;
+  &:hover {
+    cursor: pointer;
+  }
 `
 
 export const StyledStarIcon = styled(FontAwesomeIcon)`

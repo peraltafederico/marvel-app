@@ -1,11 +1,23 @@
 import React from 'react'
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import GlobalStyles from './globalStyles'
 import { SearchPage } from './containers/SearchPage'
+import { Layout } from './containers/Layout'
 
 const App = (): JSX.Element => (
   <>
     <GlobalStyles />
-    <SearchPage />
+    <Router>
+      <Switch>
+        <Route path="/comic">
+          <Layout />
+        </Route>
+        <Route path="/search">
+          <SearchPage />
+        </Route>
+        <Redirect from="*" to="/search" />
+      </Switch>
+    </Router>
   </>
 )
 

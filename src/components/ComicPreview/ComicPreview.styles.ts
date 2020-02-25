@@ -16,6 +16,9 @@ export const Image = styled.img`
   width: inherit;
   height: 100%;
   border-radius: 5px;
+  &:hover {
+    cursor: pointer;
+  }
 `
 
 export const Content = styled.div`

@@ -8,6 +8,7 @@ export const Backdrop = styled.div`
   left: 0px;
   right: 0px;
   background-color: #00000076;
+  z-index: 99;
 `
 
 export const Modal = styled.div`

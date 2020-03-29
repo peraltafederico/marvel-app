@@ -29,7 +29,12 @@ export const Header = ({ onClick, onChange, value }: Header): JSX.Element => {
       <Styled.Divider />
       <Styled.InputContainer>
         <Styled.SearchIcon size="lg" icon={faSearch} />
-        <Styled.Input onChange={onChange} value={value} type="text" placeholder="Buscar" />
+        <Styled.Input
+          onChange={onChange}
+          value={value}
+          type="text"
+          placeholder="Buscar"
+        />
         <Styled.StarIcon
           size="lg"
           onClick={(): void => handleClick()}

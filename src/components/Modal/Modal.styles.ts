@@ -12,9 +12,9 @@ export const Backdrop = styled.div`
 `
 
 export const Modal = styled.div`
-  position: absolute;
+  position: fixed;
   margin: auto;
-  top: 0;
+  top: 47px;
   bottom: 0;
   left: 0;
   right: 0;

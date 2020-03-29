@@ -8,14 +8,6 @@ interface Modal {
 }
 
 export const Modal: FC<Modal> = ({ children, onClose }: Modal): JSX.Element => {
-  const scrollToTop = (): void => {
-    document.body.scrollTop = 0
-    document.documentElement.scrollTop = 0
-  }
-
-  useEffect(() => {
-    scrollToTop()
-  }, [])
 
   return (
     <>

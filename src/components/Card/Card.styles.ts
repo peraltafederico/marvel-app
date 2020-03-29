@@ -6,7 +6,7 @@ interface Container {
 }
 
 export const Container = styled.div<Container>`
-  background-image: ${(props): string => `url(${props.background}) `};
+  background: grey ${(props): string => `url(${props.background}) `};
   background-repeat: no-repeat;
   background-size: cover;
   width: 256px;
@@ -26,7 +26,7 @@ export const StarIcon = styled(FontAwesomeIcon)`
 `
 
 export const Title = styled.h3`
-  color: white;
+  color: #fff;
   position: absolute;
   bottom: 0px;
   left: 15px;

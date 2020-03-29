@@ -20,7 +20,7 @@ export const Card = ({
 }: Card): JSX.Element => {
   const [selected, setSelected] = useState(favourite)
 
-  const handleOnClickFavourite = (): void => {
+  const handleClickFavourite = (): void => {
     setSelected(!selected)
     onClickFavourite()
   }
@@ -28,7 +28,7 @@ export const Card = ({
   return (
     <Styled.Container background={background}>
       <Styled.StarIcon
-        onClick={(): void => handleOnClickFavourite()}
+        onClick={(): void => handleClickFavourite()}
         icon={selected ? faStarSolid : faStarRegular}
       />
       <Styled.Title onClick={(): void => onClickImage()}>{title.toUpperCase()}</Styled.Title>

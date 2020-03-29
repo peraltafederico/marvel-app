@@ -18,7 +18,7 @@ export const ComicPreview = ({
 }: ComicPreview): JSX.Element => {
   const [selected, setSelected] = useState(favourite)
 
-  const handleOnClickFavourite = (): void => {
+  const handleClickFavourite = (): void => {
     setSelected(!selected)
     onClickFavourite()
   }
@@ -32,7 +32,7 @@ export const ComicPreview = ({
         <Styled.Header>
           <Styled.Title>Title</Styled.Title>
           <Styled.StarIcon
-            onClick={(): void => handleOnClickFavourite()}
+            onClick={(): void => handleClickFavourite()}
             icon={selected ? faStarSolid : faStarRegular}
           />
         </Styled.Header>

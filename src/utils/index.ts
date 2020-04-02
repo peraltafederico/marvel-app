@@ -14,7 +14,10 @@ export const getComicThumbnail = (comic: unknown): string => {
   return `${path}.${ext}`
 }
 
-export const fetchWithLoading = async (fetchingState: Function, callback: Function) => {
+export const fetchWithLoading = async (
+  fetchingState: Function,
+  callback: Function
+): Promise<void> => {
   fetchingState(true)
   await callback()
   fetchingState(false)

@@ -1,4 +1,4 @@
-import React, { FC, useState, useContext, useEffect, useCallback, useRef } from 'react'
+import React, { FC, useState, useEffect } from 'react'
 import { useHistory, Switch, Route, Redirect } from 'react-router-dom'
 import * as Styled from './Layout.styles'
 import { Header } from '../../components/Header'
@@ -17,8 +17,8 @@ export const Layout: FC<Layout> = ({ children }: Layout): JSX.Element => {
   const search = useDebounce(value, 500)
 
   useEffect(() => {
-      history.push(`/search?name=${search}`)
-  }, [search])
+    history.push(`/search?name=${search}`)
+  }, [search, history])
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const { value } = event.currentTarget
@@ -27,11 +27,7 @@ export const Layout: FC<Layout> = ({ children }: Layout): JSX.Element => {
 
   return (
     <>
-      <Header
-        onChange={handleChange}
-        value={value}
-        onClick={(): void => {}}
-      />
+      <Header onChange={handleChange} value={value} onClick={(): void => {}} />
       <Styled.ContentContainer>
         <Styled.Content>
           <Switch>

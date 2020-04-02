@@ -5,19 +5,19 @@ import { Header } from '../../components/Header'
 import useDebounce from '../../hooks/useDebounce'
 import { ComicPage } from '../ComicPage'
 import { SearchPage } from '../SearchPage'
+import useQuery from '../../hooks/useQuery'
 
-interface Layout {
-  children?: React.ReactNode
-}
-
-export const Layout: FC<Layout> = ({ children }: Layout): JSX.Element => {
+export const Layout = (): JSX.Element => {
   const history = useHistory()
-  const [value, setValue] = useState('')
+  const query = useQuery()
+  const [value, setValue] = useState(query.get('name') || '')
 
-  const search = useDebounce(value, 500)
+  const [search, alreadySearched] = useDebounce(value, 500)
 
   useEffect(() => {
-    history.push(`/search?name=${search}`)
+    if (alreadySearched) {
+      history.push(`/search?character=${search}`)
+    }
   }, [search, history])
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {

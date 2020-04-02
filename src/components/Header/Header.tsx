@@ -37,7 +37,7 @@ export const Header = ({ onClick, onChange, value }: Header): JSX.Element => {
         />
         <Styled.StarIcon
           size="lg"
-          onClick={(): void => handleClick()}
+          onClick={handleClick}
           icon={selected ? faStarSolid : faStarRegular}
         />
       </Styled.InputContainer>

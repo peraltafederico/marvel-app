@@ -1,8 +1,10 @@
 import React, { FC, useState, useContext, useEffect, useCallback, useRef } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useHistory, Switch, Route, Redirect } from 'react-router-dom'
 import * as Styled from './Layout.styles'
 import { Header } from '../../components/Header'
 import useDebounce from '../../hooks/useDebounce'
+import { ComicPage } from '../ComicPage'
+import { SearchPage } from '../SearchPage'
 
 interface Layout {
   children?: React.ReactNode
@@ -15,11 +17,7 @@ export const Layout: FC<Layout> = ({ children }: Layout): JSX.Element => {
   const search = useDebounce(value, 500)
 
   useEffect(() => {
-    if (search) {
       history.push(`/search?name=${search}`)
-    } else {
-      history.push(`/search`)
-    }
   }, [search])
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -30,12 +28,22 @@ export const Layout: FC<Layout> = ({ children }: Layout): JSX.Element => {
   return (
     <>
       <Header
-        onChange={(event: React.ChangeEvent<HTMLInputElement>): void => handleChange(event)}
+        onChange={handleChange}
         value={value}
         onClick={(): void => {}}
       />
       <Styled.ContentContainer>
-        <Styled.Content>{children}</Styled.Content>
+        <Styled.Content>
+          <Switch>
+            <Route path="/comic">
+              <ComicPage />
+            </Route>
+            <Route path="/search">
+              <SearchPage />
+            </Route>
+            <Redirect from="*" to="/search" />
+          </Switch>
+        </Styled.Content>
       </Styled.ContentContainer>
     </>
   )

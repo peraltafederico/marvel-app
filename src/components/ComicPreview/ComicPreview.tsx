@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect } from 'react'
 import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons'
 import { faStar as faStarSolid } from '@fortawesome/free-solid-svg-icons'
 import * as Styled from './ComicPreview.styles'
-import { isNil } from 'lodash'
 
 interface ComicPreview {
   favourite?: boolean

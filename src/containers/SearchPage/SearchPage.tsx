@@ -24,7 +24,7 @@ export const SearchPage = (): JSX.Element => {
   const [characters, setCharacters] = useState([] as any)
   const history = useHistory()
   const query = useQuery()
-  const search = query.get('name')
+  const search = query.get('character')
 
   useEffect(() => {
     const getRandomCharacters = async (): Promise<void> => {

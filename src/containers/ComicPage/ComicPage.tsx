@@ -1,11 +1,8 @@
-import React, { useState } from 'react'
-import { Layout } from '../Layout'
+import React from 'react'
 import { ComicSummary } from '../../components/ComicSummary'
 
 export const ComicPage = (): JSX.Element => {
   return (
-    <Layout>
       <ComicSummary />
-    </Layout>
   )
 }

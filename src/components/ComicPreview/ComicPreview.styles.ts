@@ -1,10 +1,13 @@
 import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
+const lh = '1.4em'
+const maxLines = 3
+
 export const Container = styled.div`
   display: flex;
   height: 85px;
-  margin: 10px 0;
+  margin: 20px 0;
 `
 
 export const CoverPage = styled.div`
@@ -41,6 +44,26 @@ export const StarIcon = styled(FontAwesomeIcon)`
   }
 `
 
+export const DescriptionContainer = styled.div`
+  overflow: hidden;
+  position: relative;
+  width: 325px;
+`
+
 export const Description = styled.p`
   font-size: 12px;
+  max-height: calc(${lh} * ${maxLines});
+  line-height: ${lh};
+  margin: 5px 0 0;
+  padding-right: 18px;
+  text-align: justify;
+`
+
+export const Ellipsis = styled.div`
+  &::after {
+    position: absolute;
+    content: '...';
+    bottom: 3px;
+    right: 6px;
+  }
 `

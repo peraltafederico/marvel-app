@@ -1,9 +1,5 @@
 import { get } from 'lodash'
 
-export const parseMarvelResponse = (response: unknown): never[] => {
-  return get(response, 'data.results')
-}
-
 export const getCharacterThumbnail = (character: unknown): string => {
   const path = get(character, 'thumbnail.path')
   const ext = get(character, 'thumbnail.extension')
@@ -11,6 +7,15 @@ export const getCharacterThumbnail = (character: unknown): string => {
   return `${path}/portrait_xlarge.${ext}`
 }
 
-export const getCharacterName = (character: unknown): string => {
-  return get(character, 'name')
+export const getComicThumbnail = (comic: unknown): string => {
+  const path = get(comic, 'thumbnail.path')
+  const ext = get(comic, 'thumbnail.extension')
+
+  return `${path}.${ext}`
+}
+
+export const fetchWithLoading = async (fetchingState: Function, callback: Function) => {
+  fetchingState(true)
+  await callback()
+  fetchingState(false)
 }

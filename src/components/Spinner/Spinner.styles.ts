@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const Spinner = styled.div`
   color: #ed1d24;
-  font-size: 180px;
+  font-size: 120px;
   text-indent: -9999em;
   overflow: hidden;
   width: 1em;

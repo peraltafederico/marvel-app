@@ -28,10 +28,10 @@ export const Card = ({
   return (
     <Styled.Container background={background}>
       <Styled.StarIcon
-        onClick={(): void => handleClickFavourite()}
+        onClick={handleClickFavourite}
         icon={selected ? faStarSolid : faStarRegular}
       />
-      <Styled.Title onClick={(): void => onClickImage()}>{title.toUpperCase()}</Styled.Title>
+      <Styled.Title onClick={onClickImage}>{title.toUpperCase()}</Styled.Title>
     </Styled.Container>
   )
 }

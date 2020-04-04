@@ -8,17 +8,17 @@ interface ComicPreview {
   title: string
   img: string
   description: string
-  onClickImage: () => void
+  id: string
   onClickFavourite: () => void
 }
 
 export const ComicPreview = ({
   favourite,
-  onClickImage,
   onClickFavourite,
   title,
   img,
   description,
+  id,
 }: ComicPreview): JSX.Element => {
   const [selected, setSelected] = useState(favourite)
   const [withEllipsis, setWithEllipsis] = useState(false)
@@ -37,9 +37,13 @@ export const ComicPreview = ({
 
   return (
     <Styled.Container>
-      <Styled.CoverPage>
-        <Styled.Image onClick={onClickImage} src={img} />
-      </Styled.CoverPage>
+      <Styled.CoverPageLink
+        to={{
+          pathname: `/comic/${id}`,
+        }}
+      >
+        <Styled.Image src={img} />
+      </Styled.CoverPageLink>
       <Styled.Content>
         <Styled.Header>
           <Styled.Title>{title}</Styled.Title>

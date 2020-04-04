@@ -31,7 +31,7 @@ export const Layout = (): JSX.Element => {
       <Styled.ContentContainer>
         <Styled.Content>
           <Switch>
-            <Route path="/comic">
+            <Route path="/comic/:id">
               <ComicPage />
             </Route>
             <Route path="/search">

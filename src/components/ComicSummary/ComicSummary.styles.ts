@@ -4,6 +4,7 @@ export const Container = styled.div`
   display: flex;
   width: 100%;
   height: 750px;
+  margin-bottom: 30px;
 `
 export const CoverPage = styled.div`
   display: flex;

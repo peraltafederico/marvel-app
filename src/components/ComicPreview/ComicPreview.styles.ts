@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Link } from 'react-router-dom'
 
 const lh = '1.4em'
 const maxLines = 3
@@ -10,7 +11,7 @@ export const Container = styled.div`
   margin: 20px 0;
 `
 
-export const CoverPage = styled.div`
+export const CoverPageLink = styled(Link)`
   width: 75px;
   margin-right: 10px;
 `

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { useHistory } from 'react-router-dom'
 import { get } from 'lodash'
 import { Card } from '../../components/Card'
 import { StyledCardContainer } from './SearchPage.styles'
@@ -22,36 +21,32 @@ export const SearchPage = (): JSX.Element => {
   const [comicList, setComicList] = useState([] as any)
   const [showModal, setShowModal] = useState(false)
   const [characters, setCharacters] = useState([] as any)
-  const history = useHistory()
   const query = useQuery()
   const search = query.get('character')
 
   useEffect(() => {
-    const getRandomCharacters = async (): Promise<void> => {
+    const getCharacters = async (): Promise<void> => {
       // TODO: Review this
       const offset = Math.floor(Math.random() * 1400 + 1)
+      // TODO: Fetch data when scrolling
+      const url = search
+        ? `/characters?&nameStartsWith=${search}&limit=100`
+        : `/characters?&offset=${offset}&limit=1`
 
-      const { data: res } = await axios.get(`/characters?&offset=${offset}&limit=1`)
+      const { data: res } = await axios.get(url)
       const characters = get(res, 'data.results')
+
       setCharacters(characters)
     }
 
-    const getCharacter = async (): Promise<void> => {
-      const { data: res } = await axios.get(`/characters?&nameStartsWith=${search}`)
-      const characters = get(res, 'data.results')
-      setCharacters(characters)
-    }
-
-    if (search) {
-      fetchWithLoading(setFetchingChars, getCharacter)
-    } else {
-      fetchWithLoading(setFetchingChars, getRandomCharacters)
-    }
+    fetchWithLoading(setFetchingChars, getCharacters)
   }, [search])
 
   useEffect(() => {
     const getComics = async (): Promise<void> => {
-      const { data: res } = await axios.get(`/characters/${selectedCharacter.id}/comics`)
+      const { data: res } = await axios.get(
+        `/characters/${selectedCharacter.id}/comics?&orderBy=-focDate`
+      )
 
       setComicList(get(res, 'data.results'))
     }
@@ -66,10 +61,6 @@ export const SearchPage = (): JSX.Element => {
     setShowModal(true)
   }
 
-  const onClickImage = (): void => {
-    history.push('/comic')
-  }
-
   return (
     <>
       {showModal && (
@@ -81,7 +72,7 @@ export const SearchPage = (): JSX.Element => {
               (comic, index): JSX.Element => (
                 <ComicPreview
                   key={`comicPreview${index}`}
-                  onClickImage={(): void => onClickImage()}
+                  id={comic.id}
                   onClickFavourite={(): void => {}}
                   title={get(comic, 'title')}
                   img={getComicThumbnail(comic)}

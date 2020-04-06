@@ -1,16 +1,6 @@
 import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-export const Backdrop = styled.div`
-  position: fixed;
-  top: 0px;
-  bottom: 0px;
-  left: 0px;
-  right: 0px;
-  background-color: #00000076;
-  z-index: 99;
-`
-
 export const Modal = styled.div`
   position: fixed;
   margin: auto;

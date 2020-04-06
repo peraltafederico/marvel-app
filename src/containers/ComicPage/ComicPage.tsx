@@ -7,7 +7,7 @@ import { fetchWithLoading, getComicThumbnail } from '../../utils'
 import { Spinner } from '../../components/Spinner/Spinner.styles'
 
 export const ComicPage = (): JSX.Element => {
-  const [fetching, setFetching] = useState(true)
+  const [loading, setLoading] = useState(true)
   const [comic, setComic] = useState({} as any)
   const { id } = useParams()
 
@@ -19,10 +19,10 @@ export const ComicPage = (): JSX.Element => {
       setComic(result)
     }
 
-    fetchWithLoading(setFetching, getComic)
+    fetchWithLoading(setLoading, getComic)
   }, [id])
 
-  return fetching ? (
+  return loading ? (
     <Spinner />
   ) : (
     <ComicSummary

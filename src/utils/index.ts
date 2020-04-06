@@ -15,10 +15,10 @@ export const getComicThumbnail = (comic: unknown): string => {
 }
 
 export const fetchWithLoading = async (
-  fetchingState: Function,
+  loadingState: Function,
   callback: Function
 ): Promise<void> => {
-  fetchingState(true)
+  loadingState(true)
   await callback()
-  fetchingState(false)
+  loadingState(false)
 }

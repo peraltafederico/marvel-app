@@ -31,7 +31,7 @@ export const Card = ({
         onClick={handleClickFavourite}
         icon={selected ? faStarSolid : faStarRegular}
       />
-      <Styled.Title onClick={onClickImage}>{title.toUpperCase()}</Styled.Title>
+      <Styled.Title onClick={onClickImage}>{title}</Styled.Title>
     </Styled.Container>
   )
 }

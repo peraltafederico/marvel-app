@@ -4,7 +4,7 @@ export const getCharacterThumbnail = (character: unknown): string => {
   const path = get(character, 'thumbnail.path')
   const ext = get(character, 'thumbnail.extension')
 
-  return `${path}/portrait_xlarge.${ext}`
+  return `${path}/portrait_incredible.${ext}`
 }
 
 export const getComicThumbnail = (comic: unknown): string => {

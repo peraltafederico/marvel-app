@@ -12,28 +12,36 @@ interface ComicsMoldal {
   onClose: () => void
 }
 
+const defaultComicsAmount = 20
+
 export const ComicsModal = ({ characterId, title, onClose }: ComicsMoldal): JSX.Element => {
   const [loading, setLoading] = useState(false)
   const [comics, setComics] = useState([] as any)
   const [hasComicsToFetch, setHasComicsToFetch] = useState(true)
   const [page, setPage] = useState(0)
+  const [total, setTotal] = useState(0)
   const loadingRef = useRef(null)
-  const limit = 20
 
   const handleObserver = useCallback(
     (entities) => {
       const getComics = async (): Promise<void> => {
-        const offset = page * limit
+        const offset = page * defaultComicsAmount
+        const limit = total - offset < offset ? total - offset : defaultComicsAmount
 
         const { data: res } = await axios.get(
-          `/characters/${characterId}/comics?&orderBy=-focDate&offset=${offset}`
+          `/characters/${characterId}/comics?&orderBy=-focDate&limit=${limit}&offset=${offset}`
         )
+
         const newComics = get(res, 'data.results')
+
+        if (!total) {
+          setTotal(get(res, 'data.total'))
+        }
 
         if (newComics.length > 0) {
           setComics([...comics, ...newComics])
 
-          if (get(res, 'data.total') / offset > 1) {
+          if ((total || get(res, 'data.total')) > offset + limit) {
             setPage(page + 1)
           } else {
             setHasComicsToFetch(false)
@@ -49,7 +57,7 @@ export const ComicsModal = ({ characterId, title, onClose }: ComicsMoldal): JSX.
         !loading && fetchWithLoading(setLoading, getComics)
       }
     },
-    [loading, characterId, page, comics, hasComicsToFetch]
+    [loading, characterId, page, comics, hasComicsToFetch, total]
   )
 
   useEffect(() => {
@@ -60,13 +68,14 @@ export const ComicsModal = ({ characterId, title, onClose }: ComicsMoldal): JSX.
     }
 
     const observer = new IntersectionObserver(handleObserver, options)
+    const ref = loadingRef.current
 
-    if (loadingRef && loadingRef.current) {
-      observer.observe(loadingRef.current)
+    if (ref) {
+      observer.observe(ref)
     }
 
     return (): void => {
-      observer.unobserve(loadingRef?.current)
+      observer.unobserve(ref)
     }
   }, [handleObserver, loadingRef])
 

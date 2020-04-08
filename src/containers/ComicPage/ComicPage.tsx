@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { get } from 'lodash'
+import moment from 'moment'
 import { ComicSummary } from '../../components/ComicSummary'
 import axios from '../../services/api'
 import { fetchWithLoading, getComicThumbnail } from '../../utils'
@@ -22,6 +23,25 @@ export const ComicPage = (): JSX.Element => {
     fetchWithLoading(setLoading, getComic)
   }, [id])
 
+  const mergeComicData = (): Record<string, string[]> => {
+    const data: Record<string, string[]> = {}
+
+    const { date } = comic.dates.find((date) => date.type === 'onsaleDate')
+
+    data.published = [moment(date).format('MMMM DD, YYYY').toString()]
+
+    comic.creators.items.forEach((creator) => {
+      if (!data[creator.role]) {
+        data[creator.role] = [creator.name]
+        return
+      }
+
+      data[creator.role].push(creator.name)
+    })
+
+    return data
+  }
+
   return loading ? (
     <Spinner />
   ) : (
@@ -29,6 +49,7 @@ export const ComicPage = (): JSX.Element => {
       title={comic.title}
       imgUrl={getComicThumbnail(comic)}
       description={comic.description}
+      data={mergeComicData()}
     />
   )
 }

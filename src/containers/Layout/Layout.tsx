@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useHistory, Switch, Route, Redirect } from 'react-router-dom'
 import * as Styled from './Layout.styles'
 import { Header } from '../../components/Header'

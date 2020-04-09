@@ -9,7 +9,12 @@ interface ComicSummary {
   data: Record<string, string[]>
 }
 
-export const ComicSummary = ({ title, imgUrl, description, data }: ComicSummary): JSX.Element => (
+export const ComicSummary = ({
+  title,
+  imgUrl,
+  description,
+  data,
+}: ComicSummary): JSX.Element => (
   <Styled.Container>
     <Styled.CoverPage>
       <Styled.Image src={imgUrl} />
@@ -18,12 +23,14 @@ export const ComicSummary = ({ title, imgUrl, description, data }: ComicSummary)
       <Styled.Title>{title}</Styled.Title>
       <Styled.ComicInfo>
         {Object.keys(data).map((key) => (
-          <Styled.Data key={key}>{`${key.replace(/^\w/, (c) => c.toUpperCase())}: ${data[key].join(
-            ', '
-          )}`}</Styled.Data>
+          <Styled.Data key={key}>{`${key.replace(/^\w/, (c) =>
+            c.toUpperCase()
+          )}: ${data[key].join(', ')}`}</Styled.Data>
         ))}
       </Styled.ComicInfo>
-      {description && <Styled.Description>{ReactHtmlParser(description)}</Styled.Description>}
+      {description && (
+        <Styled.Description>{ReactHtmlParser(description)}</Styled.Description>
+      )}
     </Styled.Content>
   </Styled.Container>
 )

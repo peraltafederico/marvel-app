@@ -30,7 +30,9 @@ export const ComicPreview = ({
   }
 
   useEffect(() => {
-    if (descRef.current!.scrollHeight > descRef.current!.clientHeight) {
+    const ref = descRef.current
+
+    if (ref.scrollHeight > ref.clientHeight) {
       setWithEllipsis(true)
     }
   }, [descRef])

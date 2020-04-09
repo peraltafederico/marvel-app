@@ -87,7 +87,7 @@ export const ComicsModal = ({ characterId, title, onClose }: ComicsMoldal): JSX.
               <ComicPreview
                 key={`comicPreview${index}`}
                 id={comic.id}
-                onClickFavourite={(): void => {}}
+                onClickStar={(): void => {}}
                 title={get(comic, 'title')}
                 img={getComicThumbnail(comic)}
                 description={get(comic, 'description')}

@@ -4,31 +4,31 @@ import { faStar as faStarSolid } from '@fortawesome/free-solid-svg-icons'
 import * as Styled from './Card.styles'
 
 interface Card {
-  favourite?: boolean
+  favorite?: boolean
   background: string
   title: string
   onClickImage: () => void
-  onClickFavourite: () => void
+  onClickStar: () => void
 }
 
 export const Card = ({
-  favourite,
+  favorite,
   onClickImage,
-  onClickFavourite,
+  onClickStar,
   background,
   title,
 }: Card): JSX.Element => {
-  const [selected, setSelected] = useState(favourite)
+  const [selected, setSelected] = useState(favorite)
 
-  const handleClickFavourite = (): void => {
+  const handleClickFavorite = (): void => {
     setSelected(!selected)
-    onClickFavourite()
+    onClickStar()
   }
 
   return (
     <Styled.Container background={background}>
       <Styled.StarIcon
-        onClick={handleClickFavourite}
+        onClick={handleClickFavorite}
         icon={selected ? faStarSolid : faStarRegular}
       />
       <Styled.Title onClick={onClickImage}>{title}</Styled.Title>

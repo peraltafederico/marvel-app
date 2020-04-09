@@ -6,19 +6,13 @@ import logo from '../../assets/logo.png'
 import * as Styled from './Header.styles'
 
 interface Header {
-  onClick: () => void
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
   value: string
+  starSelected: boolean
+  onClickStar: () => void
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-export const Header = ({ onClick, onChange, value }: Header): JSX.Element => {
-  const [selected, setSelected] = useState(false)
-
-  const handleClick = (): void => {
-    setSelected(!selected)
-    onClick()
-  }
-
+export const Header = ({ onClickStar, onChange, value, starSelected }: Header): JSX.Element => {
   return (
     <Styled.Container>
       <Styled.LogoContainer>
@@ -32,8 +26,8 @@ export const Header = ({ onClick, onChange, value }: Header): JSX.Element => {
         <Styled.Input onChange={onChange} value={value} type="text" placeholder="Buscar" />
         <Styled.StarIcon
           size="lg"
-          onClick={handleClick}
-          icon={selected ? faStarSolid : faStarRegular}
+          onClick={onClickStar}
+          icon={starSelected ? faStarSolid : faStarRegular}
         />
       </Styled.InputContainer>
       <Styled.Divider height="25px" />

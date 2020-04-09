@@ -27,7 +27,6 @@ export const SearchPage = (): JSX.Element => {
     const getCharacters = async (): Promise<void> => {
       // TODO: Review this
       const offset = Math.floor(Math.random() * 1400 + 1)
-      // TODO: Fetch data when scrolling
       let url = '/characters'
 
       url += search ? `?&nameStartsWith=${search}&limit=20` : `?&offset=${offset}&limit=1`
@@ -64,7 +63,7 @@ export const SearchPage = (): JSX.Element => {
               title={character.name}
               background={getCharacterThumbnail(character)}
               onClickImage={(): void => handleClickCard(character.name, character.id)}
-              onClickFavourite={(): void => {}}
+              onClickStar={(): void => {}}
             />
           </StyledCardContainer>
         ))

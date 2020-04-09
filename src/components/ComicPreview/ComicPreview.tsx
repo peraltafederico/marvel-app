@@ -4,29 +4,29 @@ import { faStar as faStarSolid } from '@fortawesome/free-solid-svg-icons'
 import * as Styled from './ComicPreview.styles'
 
 interface ComicPreview {
-  favourite?: boolean
+  favorite?: boolean
   title: string
   img: string
   description: string
   id: string
-  onClickFavourite: () => void
+  onClickStar: () => void
 }
 
 export const ComicPreview = ({
-  favourite,
-  onClickFavourite,
+  favorite,
+  onClickStar,
   title,
   img,
   description,
   id,
 }: ComicPreview): JSX.Element => {
-  const [selected, setSelected] = useState(favourite)
+  const [selected, setSelected] = useState(favorite)
   const [withEllipsis, setWithEllipsis] = useState(false)
   const descRef = useRef<HTMLDivElement>(null)
 
-  const handleClickFavourite = (): void => {
+  const handleClickFavorite = (): void => {
     setSelected(!selected)
-    onClickFavourite()
+    onClickStar()
   }
 
   useEffect(() => {
@@ -48,7 +48,7 @@ export const ComicPreview = ({
         <Styled.Header>
           <Styled.Title>{title}</Styled.Title>
           <Styled.StarIcon
-            onClick={handleClickFavourite}
+            onClick={handleClickFavorite}
             icon={selected ? faStarSolid : faStarRegular}
           />
         </Styled.Header>

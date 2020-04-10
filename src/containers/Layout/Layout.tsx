@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useHistory, Switch, Route, Redirect } from 'react-router-dom'
 import * as Styled from './Layout.styles'
 import { Header } from '../../components/Header'
@@ -13,7 +13,6 @@ export const Layout = (): JSX.Element => {
   const query = useQuery()
   const [value, setValue] = useState(query.get('name') || '')
   const [favorites, setFavorites] = useState(false)
-
   const [search, alreadySearched] = useDebounce(value, 500)
 
   useEffect(() => {

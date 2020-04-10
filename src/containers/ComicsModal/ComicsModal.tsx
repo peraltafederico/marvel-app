@@ -14,7 +14,11 @@ interface ComicsMoldal {
 
 const defaultComicsAmount = 20
 
-export const ComicsModal = ({ characterId, title, onClose }: ComicsMoldal): JSX.Element => {
+export const ComicsModal = ({
+  characterId,
+  title,
+  onClose,
+}: ComicsMoldal): JSX.Element => {
   const [loading, setLoading] = useState(false)
   const [comics, setComics] = useState([] as any)
   const [hasComicsToFetch, setHasComicsToFetch] = useState(true)
@@ -26,7 +30,8 @@ export const ComicsModal = ({ characterId, title, onClose }: ComicsMoldal): JSX.
     (entities) => {
       const getComics = async (): Promise<void> => {
         const offset = page * defaultComicsAmount
-        const limit = total - offset < offset ? total - offset : defaultComicsAmount
+        const limit =
+          total - offset < offset ? total - offset : defaultComicsAmount
 
         const { data: res } = await axios.get(
           `/characters/${characterId}/comics?&orderBy=-focDate&limit=${limit}&offset=${offset}`

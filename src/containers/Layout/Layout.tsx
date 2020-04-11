@@ -32,6 +32,10 @@ export const Layout = (): JSX.Element => {
     !favorites ? history.push(`/favorites`) : history.push(`/search`)
   }
 
+  const handleClickLogo = (): void => {
+    setFavorites(false)
+  }
+
   return (
     <>
       <Header
@@ -39,6 +43,7 @@ export const Layout = (): JSX.Element => {
         value={value}
         starSelected={favorites}
         onClickStar={handleClickFavorites}
+        onClickLogo={handleClickLogo}
       />
       <Styled.ContentContainer>
         <Styled.Content>

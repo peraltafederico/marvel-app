@@ -41,9 +41,13 @@ export const SearchPage: FC = (): JSX.Element => {
     fetchWithLoading(setLoading, getCharacters)
   }, [search])
 
+  useEffect(() => {
+    localStorage.setItem('favCharacters', JSON.stringify(userState))
+  }, [userState])
+
   const handleClickCard = (name: string, id: number): void => {
     setSelectedCharacter({ id, name })
-    setShowModal(true)
+    setShowModal(!showModal)
   }
 
   const handleClickFavorite = (id: number, favorite: boolean): void => {

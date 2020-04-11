@@ -24,11 +24,13 @@ interface State {
   }
 }
 
+const persistedState = JSON.parse(localStorage.getItem('favCharacters'))
+
 const initialState = {
   favCharacters: {},
 }
 
-const UserStateContext = createContext<State>({ ...initialState })
+const UserStateContext = createContext<State>(persistedState || initialState)
 const UserDispatchContext = createContext<Dispatch | undefined>(undefined)
 
 const userReducer = (state: State, action: Action): State => {
@@ -46,7 +48,9 @@ const userReducer = (state: State, action: Action): State => {
         ...state,
         favCharacters: {
           ...state.favCharacters,
-          [action.payload.charId]: state[action.payload.id].comics.concat(action.payload.id),
+          [action.payload.charId]: {
+            comics: state.favCharacters[action.payload.charId].comics.concat(action.payload.id),
+          },
         },
       }
     case 'REMOVE_FAV_COMIC':
@@ -54,9 +58,11 @@ const userReducer = (state: State, action: Action): State => {
         ...state,
         favCharacters: {
           ...state.favCharacters,
-          [action.payload.charId]: state[action.payload.id].comics.filter(
-            (comic) => comic !== action.payload.id
-          ),
+          [action.payload.charId]: {
+            comics: state.favCharacters[action.payload.charId].comics.filter(
+              (comic) => comic !== action.payload.id
+            ),
+          },
         },
       }
     case 'REMOVE_FAV_CHARACTER':
@@ -70,7 +76,7 @@ const userReducer = (state: State, action: Action): State => {
 }
 
 const UserProvider: FC = ({ children }) => {
-  const [state, dispatch] = useReducer(userReducer, initialState)
+  const [state, dispatch] = useReducer(userReducer, persistedState || initialState)
 
   return (
     <UserStateContext.Provider value={state}>

@@ -9,14 +9,21 @@ interface Header {
   value: string
   starSelected: boolean
   onClickStar: () => void
+  onClickLogo: () => void
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-export const Header = ({ onClickStar, onChange, value, starSelected }: Header): JSX.Element => {
+export const Header = ({
+  onClickStar,
+  onChange,
+  value,
+  starSelected,
+  onClickLogo,
+}: Header): JSX.Element => {
   return (
     <Styled.Container>
       <Styled.LogoContainer>
-        <Link to="/">
+        <Link to="/" onClick={onClickLogo}>
           <Styled.Logo src={logo} alt="Logo" />
         </Link>
       </Styled.LogoContainer>

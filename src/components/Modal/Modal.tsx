@@ -9,11 +9,7 @@ interface Modal {
   onClose: () => void
 }
 
-export const Modal: FC<Modal> = ({
-  children,
-  onClose,
-  title,
-}: Modal): JSX.Element => {
+export const Modal: FC<Modal> = ({ children, onClose, title }: Modal): JSX.Element => {
   return (
     <>
       <Backdrop onClick={onClose} />

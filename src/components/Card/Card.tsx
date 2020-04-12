@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons'
 import { faStar as faStarSolid } from '@fortawesome/free-solid-svg-icons'
 import * as Styled from './Card.styles'

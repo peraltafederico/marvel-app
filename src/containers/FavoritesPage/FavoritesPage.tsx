@@ -1,4 +1,5 @@
 import React, { FC, useState, useEffect, useContext } from 'react'
+import { get } from 'lodash'
 import { Card } from '../../components/Card'
 import { StyledCardContainer } from './FavoritesPage.styles'
 import axios from '../../services/api'
@@ -6,7 +7,6 @@ import { getCharacterThumbnail, fetchWithLoading } from '../../utils'
 import { Spinner } from '../../components/Spinner/Spinner.styles'
 import { ComicsModal } from '../ComicsModal'
 import { UserStateContext, UserDispatchContext } from '../../context/user'
-import { get } from 'lodash'
 
 interface SelectedCharacter {
   id: number

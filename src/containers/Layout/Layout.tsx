@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useHistory, Switch, Route, Redirect } from 'react-router-dom'
 import * as Styled from './Layout.styles'
 import { Header } from '../../components/Header'
@@ -6,12 +6,13 @@ import useDebounce from '../../hooks/useDebounce'
 import { ComicPage } from '../ComicPage'
 import { SearchPage } from '../SearchPage'
 import useQuery from '../../hooks/useQuery'
+import { FavoritesPage } from '../FavoritesPage'
 
 export const Layout = (): JSX.Element => {
   const history = useHistory()
   const query = useQuery()
   const [value, setValue] = useState(query.get('name') || '')
-
+  const [favorites, setFavorites] = useState(false)
   const [search, alreadySearched] = useDebounce(value, 500)
 
   useEffect(() => {
@@ -22,12 +23,28 @@ export const Layout = (): JSX.Element => {
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const { value } = event.currentTarget
+    setFavorites(false)
     setValue(value)
+  }
+
+  const handleClickFavorites = (): void => {
+    setFavorites(!favorites)
+    !favorites ? history.push(`/favorites`) : history.push(`/search`)
+  }
+
+  const handleClickLogo = (): void => {
+    setFavorites(false)
   }
 
   return (
     <>
-      <Header onChange={handleChange} value={value} onClick={(): void => {}} />
+      <Header
+        onChange={handleChange}
+        value={value}
+        starSelected={favorites}
+        onClickStar={handleClickFavorites}
+        onClickLogo={handleClickLogo}
+      />
       <Styled.ContentContainer>
         <Styled.Content>
           <Switch>
@@ -36,6 +53,9 @@ export const Layout = (): JSX.Element => {
             </Route>
             <Route path="/search">
               <SearchPage />
+            </Route>
+            <Route path="/favorites">
+              <FavoritesPage />
             </Route>
             <Redirect from="*" to="/search" />
           </Switch>

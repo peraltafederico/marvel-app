@@ -1,36 +1,26 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons'
 import { faStar as faStarSolid } from '@fortawesome/free-solid-svg-icons'
 import * as Styled from './Card.styles'
 
 interface Card {
-  favourite?: boolean
+  favorite: boolean
   background: string
   title: string
   onClickImage: () => void
-  onClickFavourite: () => void
+  onClickFavorite: () => void
 }
 
 export const Card = ({
-  favourite,
+  favorite,
   onClickImage,
-  onClickFavourite,
+  onClickFavorite,
   background,
   title,
 }: Card): JSX.Element => {
-  const [selected, setSelected] = useState(favourite)
-
-  const handleClickFavourite = (): void => {
-    setSelected(!selected)
-    onClickFavourite()
-  }
-
   return (
     <Styled.Container background={background}>
-      <Styled.StarIcon
-        onClick={handleClickFavourite}
-        icon={selected ? faStarSolid : faStarRegular}
-      />
+      <Styled.StarIcon onClick={onClickFavorite} icon={favorite ? faStarSolid : faStarRegular} />
       <Styled.Title onClick={onClickImage}>{title}</Styled.Title>
     </Styled.Container>
   )

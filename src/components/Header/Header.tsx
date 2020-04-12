@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { faStar as faStarSolid, faSearch } from '@fortawesome/free-solid-svg-icons'
 import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons'
 import { Link } from 'react-router-dom'
@@ -6,23 +6,24 @@ import logo from '../../assets/logo.png'
 import * as Styled from './Header.styles'
 
 interface Header {
-  onClick: () => void
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
   value: string
+  starSelected: boolean
+  onClickStar: () => void
+  onClickLogo: () => void
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-export const Header = ({ onClick, onChange, value }: Header): JSX.Element => {
-  const [selected, setSelected] = useState(false)
-
-  const handleClick = (): void => {
-    setSelected(!selected)
-    onClick()
-  }
-
+export const Header = ({
+  onClickStar,
+  onChange,
+  value,
+  starSelected,
+  onClickLogo,
+}: Header): JSX.Element => {
   return (
     <Styled.Container>
       <Styled.LogoContainer>
-        <Link to="/">
+        <Link to="/" onClick={onClickLogo}>
           <Styled.Logo src={logo} alt="Logo" />
         </Link>
       </Styled.LogoContainer>
@@ -32,8 +33,8 @@ export const Header = ({ onClick, onChange, value }: Header): JSX.Element => {
         <Styled.Input onChange={onChange} value={value} type="text" placeholder="Buscar" />
         <Styled.StarIcon
           size="lg"
-          onClick={handleClick}
-          icon={selected ? faStarSolid : faStarRegular}
+          onClick={onClickStar}
+          icon={starSelected ? faStarSolid : faStarRegular}
         />
       </Styled.InputContainer>
       <Styled.Divider height="25px" />

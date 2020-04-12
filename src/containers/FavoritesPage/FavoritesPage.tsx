@@ -1,11 +1,10 @@
 import React, { FC, useState, useEffect, useContext } from 'react'
 import { get } from 'lodash'
 import { Card } from '../../components/Card'
-import { StyledCardContainer } from './SearchPage.styles'
+import { StyledCardContainer } from './FavoritesPage.styles'
 import axios from '../../services/api'
 import { getCharacterThumbnail, fetchWithLoading } from '../../utils'
 import { Spinner } from '../../components/Spinner/Spinner.styles'
-import useQuery from '../../hooks/useQuery'
 import { ComicsModal } from '../ComicsModal'
 import { UserStateContext, UserDispatchContext } from '../../context/user'
 
@@ -14,32 +13,34 @@ interface SelectedCharacter {
   name: string
 }
 
-export const SearchPage: FC = (): JSX.Element => {
+export const FavoritesPage: FC = (): JSX.Element => {
   const userState = useContext(UserStateContext)
   const userDispatch = useContext(UserDispatchContext)
   const [loading, setLoading] = useState(true)
   const [showModal, setShowModal] = useState(false)
-  const [selectedCharacter, setSelectedCharacter] = useState({} as SelectedCharacter)
   const [characters, setCharacters] = useState([] as any)
-  const query = useQuery()
-  const search = query.get('character')
+  const [selectedCharacter, setSelectedCharacter] = useState({} as SelectedCharacter)
 
   useEffect(() => {
     const getCharacters = async (): Promise<void> => {
-      // TODO: Review this
-      const offset = Math.floor(Math.random() * 1400 + 1)
-      let url = '/characters'
+      const characters = []
 
-      url += search ? `?&nameStartsWith=${search}&limit=20` : `?&offset=${offset}&limit=1`
+      const response = await Promise.all(
+        Object.keys(userState.favCharacters).map(async (character) =>
+          axios.get(`/characters/${character}`)
+        )
+      )
 
-      const { data: res } = await axios.get(url)
-      const characters = get(res, 'data.results')
+      response.forEach((res) => {
+        const [result] = get(res, 'data.data.results')
+        characters.push(result)
+      })
 
-      setCharacters([...characters])
+      setCharacters(characters)
     }
 
     fetchWithLoading(setLoading, getCharacters)
-  }, [search])
+  }, [])
 
   useEffect(() => {
     localStorage.setItem('favCharacters', JSON.stringify(userState))
@@ -66,6 +67,7 @@ export const SearchPage: FC = (): JSX.Element => {
           characterId={selectedCharacter.id}
           title={selectedCharacter.name}
           onClose={(): void => setShowModal(false)}
+          favorites={true}
         />
       )}
       {loading ? (

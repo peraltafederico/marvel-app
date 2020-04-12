@@ -14,6 +14,12 @@ export const getComicThumbnail = (comic: unknown): string => {
   return `${path}.${ext}`
 }
 
+export const cloneWithoutKey = (object: any, key: string): any => {
+  const { [key]: deletedKey, ...newObject } = object
+
+  return newObject
+}
+
 export const fetchWithLoading = async (
   loadingState: Function,
   callback: Function

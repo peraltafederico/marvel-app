@@ -15,7 +15,7 @@ export const Modal = styled.div`
   border-radius: 10px;
   padding: 0 15px 15px;
   background-color: white;
-  z-index: 999;
+  z-index: 9999;
   overflow: auto;
   ::-webkit-scrollbar {
     width: 5px;
@@ -32,7 +32,6 @@ export const Header = styled.div`
   position: sticky;
   top: 0;
   width: 437px;
-  z-index: 999999;
   background-color: white;
   padding: 9px 5px 15px 0;
   box-sizing: border-box;

@@ -1,5 +1,6 @@
 import React, { FC, useState, useEffect, useContext } from 'react'
 import { get } from 'lodash'
+import { useHistory } from 'react-router-dom'
 import { Card } from '../../components/Card'
 import { StyledCardContainer } from './SearchPage.styles'
 import axios from '../../services/api'
@@ -23,6 +24,7 @@ export const SearchPage: FC = (): JSX.Element => {
   const [characters, setCharacters] = useState([] as any)
   const query = useQuery()
   const search = query.get('character')
+  const history = useHistory()
 
   useEffect(() => {
     const getCharacters = async (): Promise<void> => {
@@ -38,8 +40,16 @@ export const SearchPage: FC = (): JSX.Element => {
       setCharacters([...characters])
     }
 
-    fetchWithLoading(setLoading, getCharacters)
-  }, [search])
+    const comicUrl = search?.match(/(marvel\.com\/comics\/issue\/)((?:[0-9]+))/)
+
+    if (comicUrl) {
+      const id = comicUrl[comicUrl.length - 1]
+
+      history.push(`/comic/${id}`)
+    } else {
+      fetchWithLoading(setLoading, getCharacters)
+    }
+  }, [search, history])
 
   useEffect(() => {
     localStorage.setItem('favCharacters', JSON.stringify(userState))

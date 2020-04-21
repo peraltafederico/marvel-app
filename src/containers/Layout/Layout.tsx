@@ -33,6 +33,7 @@ export const Layout = (): JSX.Element => {
   }
 
   const handleClickLogo = (): void => {
+    setValue('')
     setFavorites(false)
   }
 

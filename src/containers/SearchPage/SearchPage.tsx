@@ -49,6 +49,8 @@ export const SearchPage: FC = (): JSX.Element => {
     } else {
       fetchWithLoading(setLoading, getCharacters)
     }
+
+    setShowModal(false)
   }, [search, history])
 
   useEffect(() => {

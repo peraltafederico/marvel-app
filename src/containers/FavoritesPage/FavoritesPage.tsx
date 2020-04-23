@@ -7,19 +7,15 @@ import { getCharacterThumbnail, fetchWithLoading } from '../../utils'
 import { Spinner } from '../../components/Spinner/Spinner.styles'
 import { ComicsModal } from '../ComicsModal'
 import { UserStateContext, UserDispatchContext } from '../../context/user'
-
-interface SelectedCharacter {
-  id: number
-  name: string
-}
+import { Character } from '../../models/Character'
 
 export const FavoritesPage: FC = (): JSX.Element => {
   const userState = useContext(UserStateContext)
   const userDispatch = useContext(UserDispatchContext)
   const [loading, setLoading] = useState(true)
   const [showModal, setShowModal] = useState(false)
-  const [characters, setCharacters] = useState([] as any)
-  const [selectedCharacter, setSelectedCharacter] = useState({} as SelectedCharacter)
+  const [characters, setCharacters] = useState([] as Character[])
+  const [selectedCharacter, setSelectedCharacter] = useState({} as Character)
 
   useEffect(() => {
     const getCharacters = async (): Promise<void> => {

@@ -38,10 +38,14 @@ export class Character {
     this.series = data.series
   }
 
-  getThumbnail = (): string => {
+  getThumbnail() {
     const path = get(this, 'thumbnail.path')
     const ext = get(this, 'thumbnail.extension')
 
     return `${path}/portrait_incredible.${ext}`
+  }
+
+  getId() {
+    return this.id.toString()
   }
 }

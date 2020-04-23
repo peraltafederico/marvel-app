@@ -9,7 +9,7 @@ import { UserDispatchContext, UserStateContext } from '../../context/user'
 import { Comic } from '../../models/Comic'
 
 interface ComicsMoldal {
-  characterId: number
+  characterId: string
   onlyFavorites?: boolean
   title: string
   names?: string[]

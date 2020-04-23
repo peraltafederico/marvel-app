@@ -76,7 +76,7 @@ export const SearchPage: FC = (): JSX.Element => {
     userDispatch({
       type: !favorite ? 'ADD_FAV_CHARACTER' : 'REMOVE_FAV_CHARACTER',
       payload: {
-        id: character.id.toString(),
+        id: character.getId(),
       },
     })
   }
@@ -85,7 +85,7 @@ export const SearchPage: FC = (): JSX.Element => {
     <>
       {showModal && (
         <ComicsModal
-          characterId={selectedCharacter.id}
+          characterId={selectedCharacter.getId()}
           title={selectedCharacter.name}
           onClose={() => setShowModal(false)}
           names={comicParam ? comicParam.split(',') : []}
@@ -96,7 +96,7 @@ export const SearchPage: FC = (): JSX.Element => {
       ) : (
         characters.map((character, index) => {
           const background = character.getThumbnail()
-          const favorite = !!userState.favCharacters[character.id.toString()]
+          const favorite = !!userState.favCharacters[character.getId()]
 
           return (
             <StyledCardContainer key={`character${index}`}>

@@ -9,8 +9,9 @@ import { UserDispatchContext, UserStateContext } from '../../context/user'
 
 interface ComicsMoldal {
   characterId: number
-  favorites?: boolean
+  onlyFavorites?: boolean
   title: string
+  names?: string[]
   onClose: () => void
 }
 
@@ -20,7 +21,8 @@ export const ComicsModal = ({
   characterId,
   title,
   onClose,
-  favorites,
+  onlyFavorites,
+  names,
 }: ComicsMoldal): JSX.Element => {
   const userState = useContext(UserStateContext)
   const userDispatch = useContext(UserDispatchContext)
@@ -98,15 +100,40 @@ export const ComicsModal = ({
         setHasComicsToFetch(false)
       }
 
+      const getComicsByNames = async (): Promise<void> => {
+        let comics = []
+        const response = await Promise.all(
+          names.map(async (name) => {
+            const title = name.split('#')[0]
+            const issueNumber = name.split('#')[1] || 0
+
+            return axios.get(
+              `/characters/${characterId}/comics?&title=${title}&issueNumber=${issueNumber}`
+            )
+          })
+        )
+
+        const res = response
+          .filter((res) => get(res, 'data.data.results').length > 0)
+          .map((res) => get(res, 'data.data.results'))
+
+        comics = comics.concat(...res)
+
+        setComics(comics)
+        setHasComicsToFetch(false)
+      }
+
       const [target] = entities
 
-      if (favorites) {
+      if ((names || []).length > 0) {
+        !loading && hasComicsToFetch && fetchWithLoading(setLoading, getComicsByNames)
+      } else if (onlyFavorites) {
         !loading && hasComicsToFetch && fetchWithLoading(setLoading, getFavoritesComics)
       } else if (target.isIntersecting && hasComicsToFetch) {
         !loading && fetchWithLoading(setLoading, getComics)
       }
     },
-    [loading, characterId, page, comics, hasComicsToFetch, total, favorites, userState]
+    [loading, characterId, page, comics, hasComicsToFetch, total, onlyFavorites, names, userState]
   )
 
   useEffect(() => {

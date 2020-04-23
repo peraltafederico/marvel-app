@@ -5,19 +5,17 @@ import { Header } from '../../components/Header'
 import useDebounce from '../../hooks/useDebounce'
 import { ComicPage } from '../ComicPage'
 import { SearchPage } from '../SearchPage'
-import useQuery from '../../hooks/useQuery'
 import { FavoritesPage } from '../FavoritesPage'
 
 export const Layout = (): JSX.Element => {
   const history = useHistory()
-  const query = useQuery()
-  const [value, setValue] = useState(query.get('name') || '')
+  const [value, setValue] = useState('')
   const [favorites, setFavorites] = useState(false)
   const [search, alreadySearched] = useDebounce(value, 500)
 
   useEffect(() => {
     if (alreadySearched) {
-      history.push(`/search?character=${search}`)
+      history.push(`/search?input=${search}`)
     }
   }, [search, history])
 

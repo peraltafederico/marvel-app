@@ -1,5 +1,3 @@
-import { useLocation } from 'react-router-dom'
-
-const useQuery = (): URLSearchParams => new URLSearchParams(useLocation().search)
+const useQuery = (params: string): URLSearchParams => new URLSearchParams(params)
 
 export default useQuery

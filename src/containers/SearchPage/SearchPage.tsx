@@ -46,6 +46,7 @@ export const SearchPage: FC = (): JSX.Element => {
       let url = ''
       let characters = []
 
+      // TODO: Fetch characters only with comics
       if (!characterParam && !comicParam) {
         if (inputParam) {
           url = `/characters?&nameStartsWith=${inputParam}&limit=20`

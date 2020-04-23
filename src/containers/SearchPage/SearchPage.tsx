@@ -9,19 +9,15 @@ import { Spinner } from '../../components/Spinner/Spinner.styles'
 import useQuery from '../../hooks/useQuery'
 import { ComicsModal } from '../ComicsModal'
 import { UserStateContext, UserDispatchContext } from '../../context/user'
-
-interface SelectedCharacter {
-  id: number
-  name: string
-}
+import { Character } from '../../models/Character'
 
 export const SearchPage: FC = (): JSX.Element => {
   const userState = useContext(UserStateContext)
   const userDispatch = useContext(UserDispatchContext)
   const [loading, setLoading] = useState(true)
   const [showModal, setShowModal] = useState(false)
-  const [selectedCharacter, setSelectedCharacter] = useState({} as SelectedCharacter)
-  const [characters, setCharacters] = useState([] as any)
+  const [selectedCharacter, setSelectedCharacter] = useState({} as Character)
+  const [characters, setCharacters] = useState([] as Character[])
   const query = useQuery(`${useLocation().search}${useLocation().hash}`)
   const inputParam = query.get('input')
   const characterParam = query.get('character')
@@ -30,7 +26,7 @@ export const SearchPage: FC = (): JSX.Element => {
   const history = useHistory()
 
   useEffect(() => {
-    const getCharactersByParam = async (names: string[]): Promise<any> => {
+    const getCharactersByParam = async (names: string[]): Promise<Character[]> => {
       const response = await Promise.all(
         names.map(async (name) => axios.get(`/characters?&name=${name}`))
       )

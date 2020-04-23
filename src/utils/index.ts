@@ -14,7 +14,7 @@ export const getComicThumbnail = (comic: unknown): string => {
   return `${path}.${ext}`
 }
 
-export const cloneWithoutKey = (object: any, key: string): any => {
+export const cloneWithoutKey = (object, key: string) => {
   const { [key]: deletedKey, ...newObject } = object
 
   return newObject

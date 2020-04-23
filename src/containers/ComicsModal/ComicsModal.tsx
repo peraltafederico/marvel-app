@@ -6,6 +6,7 @@ import { getComicThumbnail, fetchWithLoading } from '../../utils'
 import { ComicPreview } from '../../components/ComicPreview'
 import axios from '../../services/api'
 import { UserDispatchContext, UserStateContext } from '../../context/user'
+import { Comic } from '../../models/Comic'
 
 interface ComicsMoldal {
   characterId: number
@@ -27,7 +28,7 @@ export const ComicsModal = ({
   const userState = useContext(UserStateContext)
   const userDispatch = useContext(UserDispatchContext)
   const [loading, setLoading] = useState(false)
-  const [comics, setComics] = useState([] as any)
+  const [comics, setComics] = useState([] as Comic[])
   const [hasComicsToFetch, setHasComicsToFetch] = useState(true)
   const [page, setPage] = useState(0)
   const [total, setTotal] = useState(0)
@@ -172,7 +173,7 @@ export const ComicsModal = ({
               return (
                 <ComicPreview
                   key={`comicPreview${index}`}
-                  id={comic.id}
+                  id={comic.id.toString()}
                   onClickFavorite={(): void => handleClickFavorite(comic.id, favorite)}
                   title={get(comic, 'title')}
                   img={img}

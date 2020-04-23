@@ -6,10 +6,11 @@ import { ComicSummary } from '../../components/ComicSummary'
 import axios from '../../services/api'
 import { fetchWithLoading, getComicThumbnail } from '../../utils'
 import { Spinner } from '../../components/Spinner/Spinner.styles'
+import { Comic } from '../../models/Comic'
 
 export const ComicPage = (): JSX.Element => {
   const [loading, setLoading] = useState(true)
-  const [comic, setComic] = useState({} as any)
+  const [comic, setComic] = useState({} as Comic)
   const { id } = useParams()
 
   useEffect(() => {

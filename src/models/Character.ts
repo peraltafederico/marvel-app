@@ -1,3 +1,4 @@
+import { get } from 'lodash'
 import { Urls, Thumbnail, Stories, Events, Series, Comics } from '../interfaces'
 
 export class Character {
@@ -35,5 +36,12 @@ export class Character {
     this.stories = data.stories
     this.events = data.events
     this.series = data.series
+  }
+
+  getThumbnail = (): string => {
+    const path = get(this, 'thumbnail.path')
+    const ext = get(this, 'thumbnail.extension')
+
+    return `${path}/portrait_incredible.${ext}`
   }
 }

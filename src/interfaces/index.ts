@@ -61,3 +61,16 @@ export interface TextObjects extends Data {
 export interface Prices extends Data {
   price?: number
 }
+
+export interface CharactersOptions {
+  name?: string
+  nameStartsWith?: string
+  modifiedSince?: string
+  comics?: string
+  series?: string
+  events?: string
+  stories?: string
+  orderBy?: string
+  limit?: string
+  offset?: string
+}

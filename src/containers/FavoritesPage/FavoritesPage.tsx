@@ -42,8 +42,8 @@ export const FavoritesPage: FC = (): JSX.Element => {
     localStorage.setItem('favCharacters', JSON.stringify(userState))
   }, [userState])
 
-  const handleClickCard = (name: string, id: number): void => {
-    setSelectedCharacter({ id, name })
+  const handleClickCard = (character: Character): void => {
+    setSelectedCharacter(character)
     setShowModal(!showModal)
   }
 
@@ -78,7 +78,7 @@ export const FavoritesPage: FC = (): JSX.Element => {
               <Card
                 title={character.name}
                 background={background}
-                onClickImage={(): void => handleClickCard(character.name, character.id)}
+                onClickImage={(): void => handleClickCard(character)}
                 onClickFavorite={(): void => handleClickFavorite(character.id, favorite)}
                 favorite={favorite}
               />

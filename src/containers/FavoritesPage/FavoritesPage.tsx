@@ -67,7 +67,7 @@ export const FavoritesPage: FC = (): JSX.Element => {
           characterId={selectedCharacter.id}
           title={selectedCharacter.name}
           onClose={(): void => setShowModal(false)}
-          favorites={true}
+          onlyFavorites={true}
         />
       )}
       {loading ? (

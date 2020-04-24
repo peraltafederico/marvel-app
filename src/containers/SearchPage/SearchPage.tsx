@@ -28,7 +28,7 @@ export const SearchPage: FC = (): JSX.Element => {
     const getCharacters = async (): Promise<void> => {
       // TODO: Review this
       const offset = Math.floor(Math.random() * 1400 + 1)
-      let characters = []
+      let characters: Character[]
 
       // TODO: Fetch characters only with comics
       if (!characterParam && !comicParam) {

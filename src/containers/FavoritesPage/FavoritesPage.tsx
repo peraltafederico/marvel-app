@@ -59,14 +59,14 @@ export const FavoritesPage: FC = () => {
         <Spinner />
       ) : (
         characters.map((character, index) => {
-          const background = character.getThumbnail()
+          const img = character.getThumbnail()
           const favorite = !!userState.favCharacters[character.id.toString()]
 
           return (
             <StyledCardContainer key={`character${index}`}>
               <Card
                 title={character.name}
-                background={background}
+                background={img}
                 onClickImage={(): void => handleClickCard(character)}
                 onClickFavorite={(): void => handleClickFavorite(character, favorite)}
                 favorite={favorite}

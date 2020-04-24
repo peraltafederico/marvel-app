@@ -6,7 +6,7 @@ interface Data<T> {
   results?: T[]
 }
 
-export class Response<T> {
+export interface MarvelAPiResponse<T> {
   code?: number
 
   status?: string
@@ -20,14 +20,4 @@ export class Response<T> {
   data?: Data<T>
 
   etag?: string
-
-  constructor(data: Response<T>) {
-    this.code = data.code
-    this.status = data.status
-    this.copyright = data.copyright
-    this.attributionText = data.attributionText
-    this.attributionHTML = data.attributionHTML
-    this.data = data.data
-    this.etag = data.etag
-  }
 }

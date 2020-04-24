@@ -30,18 +30,14 @@ export class MarvelService {
   }
 
   static async getCharactersByIds(ids: string[]): Promise<Character[]> {
-    const characters = []
+    const characters: Character[] = []
 
-    const response = await Promise.all(
-      ids.map(async (character) => axios.get(`/characters/${character}`))
+    const responses = await Promise.all(
+      ids.map(async (id) => axios.get<MarvelAPiResponse<Character>>(`/characters/${id}`))
     )
 
-    response.forEach((res) => characters.push(new Character(head(get(res, 'data.data.results')))))
+    responses.forEach((res) => characters.push(new Character(head(get(res, 'data.data.results')))))
 
     return characters
-  }
-
-  static getComic = async (id: string): Promise<void> => {
-    const { data: res } = await axios.get(`/comics/${id}`)
   }
 }

@@ -1,4 +1,5 @@
-import { TextObject, Date, Price, Resource, Asset, Context } from '../interfaces/models'
+import moment from 'moment'
+import { TextObject, Date, Price, Resource, Asset, Data } from '../interfaces/models'
 
 export class Comic {
   id?: number
@@ -51,13 +52,13 @@ export class Comic {
 
   images?: Asset[]
 
-  creators?: Context
+  creators?: Data
 
-  characters?: Context
+  characters?: Data
 
-  stories?: Context
+  stories?: Data
 
-  events?: Context
+  events?: Data
 
   constructor(data?: Comic) {
     this.id = data.id
@@ -89,5 +90,24 @@ export class Comic {
     this.characters = data.characters
     this.stories = data.stories
     this.events = data.events
+  }
+
+  getData(): Record<string, string[]> {
+    const data: Record<string, string[]> = {}
+
+    const { date } = this.dates.find((date) => date.type === 'onsaleDate')
+
+    data.published = [moment(date).format('MMMM DD, YYYY').toString()]
+
+    this.creators.items.forEach((creator) => {
+      if (!data[creator.role]) {
+        data[creator.role] = [creator.name]
+        return
+      }
+
+      data[creator.role].push(creator.name)
+    })
+
+    return data
   }
 }

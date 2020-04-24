@@ -4,10 +4,6 @@ interface Item {
   role?: string
 }
 
-interface Data {
-  type?: string
-}
-
 export interface Resource {
   resourceURI?: string
   name?: string
@@ -18,22 +14,28 @@ export interface Asset {
   extension?: string
 }
 
-export interface Context {
+export interface Data {
   available?: number
   returned?: number
   collectionURI?: string
   items?: Item[]
 }
 
-export interface Date extends Data {
+export interface Date {
+  type?: string
+
   date?: string
 }
 
-export interface TextObject extends Data {
+export interface TextObject {
+  type?: string
+
   language?: string
   text?: string
 }
 
-export interface Price extends Data {
+export interface Price {
+  type?: string
+
   price?: number
 }

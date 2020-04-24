@@ -4,6 +4,7 @@ import axios from './api'
 import { Character } from '../models/Character'
 import { CharactersOptions } from '../interfaces/services'
 import { MarvelAPiResponse } from '../models/Response'
+import { Comic } from '../models/Comic'
 
 export class MarvelService {
   static async getCharactersByNames(names: string[]): Promise<Character[]> {
@@ -39,5 +40,11 @@ export class MarvelService {
     responses.forEach((res) => characters.push(new Character(head(get(res, 'data.data.results')))))
 
     return characters
+  }
+
+  static getComicById = async (id: string): Promise<Comic> => {
+    const res = await axios.get<MarvelAPiResponse<Comic>>(`/comics/${id}`)
+
+    return new Comic(head(get(res, 'data.data.results')))
   }
 }

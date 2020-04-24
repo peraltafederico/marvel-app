@@ -1,12 +1,5 @@
 import { get } from 'lodash'
 
-export const getCharacterThumbnail = (character: unknown): string => {
-  const path = get(character, 'thumbnail.path')
-  const ext = get(character, 'thumbnail.extension')
-
-  return `${path}/portrait_incredible.${ext}`
-}
-
 export const getComicThumbnail = (comic: unknown): string => {
   const path = get(comic, 'thumbnail.path')
   const ext = get(comic, 'thumbnail.extension')
@@ -14,7 +7,7 @@ export const getComicThumbnail = (comic: unknown): string => {
   return `${path}.${ext}`
 }
 
-export const cloneWithoutKey = (object, key: string) => {
+export const cloneWithoutKey = (object: Record<string, any>, key: string): Record<string, any> => {
   const { [key]: deletedKey, ...newObject } = object
 
   return newObject

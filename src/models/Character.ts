@@ -1,5 +1,5 @@
 import { get } from 'lodash'
-import { Urls, Thumbnail, Stories, Events, Series, Comics } from '../interfaces'
+import { Resource, Asset, Context } from '../interfaces/models'
 
 export class Character {
   id?: number
@@ -12,17 +12,17 @@ export class Character {
 
   resourceURI?: string
 
-  urls?: Urls[]
+  urls?: Resource[]
 
-  thumbnail?: Thumbnail
+  thumbnail?: Asset
 
-  comics?: Comics
+  comics?: Context
 
-  stories?: Stories
+  stories?: Context
 
-  events?: Events
+  events?: Context
 
-  series?: Series
+  series?: Context
 
   constructor(data?: Character) {
     this.id = data.id
@@ -38,14 +38,14 @@ export class Character {
     this.series = data.series
   }
 
-  getThumbnail() {
+  getThumbnail(): string {
     const path = get(this, 'thumbnail.path')
     const ext = get(this, 'thumbnail.extension')
 
     return `${path}/portrait_incredible.${ext}`
   }
 
-  getId() {
+  getId(): string {
     return this.id.toString()
   }
 }

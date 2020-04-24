@@ -7,7 +7,7 @@ import { Spinner } from '../../components/Spinner/Spinner.styles'
 import { ComicsModal } from '../ComicsModal'
 import { UserStateContext, UserDispatchContext } from '../../context/user'
 import { Character } from '../../models/Character'
-import { MarvelApi } from '../../services/MarvelApi'
+import { MarvelService } from '../../services/marvelService'
 import useQuery from '../../hooks/useQuery'
 
 export const SearchPage: FC = (): JSX.Element => {
@@ -33,18 +33,19 @@ export const SearchPage: FC = (): JSX.Element => {
       // TODO: Fetch characters only with comics
       if (!characterParam && !comicParam) {
         if (inputParam) {
-          characters = await MarvelApi.getCharacters({
+          characters = await MarvelService.getCharacters({
             nameStartsWith: inputParam,
             limit: 20,
           })
         } else {
-          characters = await MarvelApi.getCharacters({
+          characters = await MarvelService.getCharacters({
             offset,
             limit: 1,
           })
         }
       } else {
-        characters = await MarvelApi.getCharactersByNames(characterParam.split(','))
+        const names = characterParam.split(',')
+        characters = await MarvelService.getCharactersByNames(names)
       }
 
       setCharacters(characters)
@@ -87,7 +88,7 @@ export const SearchPage: FC = (): JSX.Element => {
         <ComicsModal
           characterId={selectedCharacter.getId()}
           title={selectedCharacter.name}
-          onClose={() => setShowModal(false)}
+          onClose={(): void => setShowModal(false)}
           names={comicParam ? comicParam.split(',') : []}
         />
       )}
@@ -103,8 +104,8 @@ export const SearchPage: FC = (): JSX.Element => {
               <Card
                 title={character.name}
                 background={background}
-                onClickImage={() => handleClickCard(character)}
-                onClickFavorite={() => handleClickFavorite(character, favorite)}
+                onClickImage={(): void => handleClickCard(character)}
+                onClickFavorite={(): void => handleClickFavorite(character, favorite)}
                 favorite={favorite}
               />
             </StyledCardContainer>

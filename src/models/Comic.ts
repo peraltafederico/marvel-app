@@ -1,19 +1,4 @@
-import {
-  TextObjects,
-  Urls,
-  Series,
-  Variants,
-  Collections,
-  CollectedIssues,
-  Dates,
-  Prices,
-  Thumbnail,
-  Images,
-  Creators,
-  Characters,
-  Stories,
-  Events,
-} from '../interfaces'
+import { TextObject, Date, Price, Resource, Asset, Context } from '../interfaces/models'
 
 export class Comic {
   id?: number
@@ -44,35 +29,35 @@ export class Comic {
 
   pageCount?: number
 
-  textObjects?: TextObjects[]
+  textObjects?: TextObject[]
 
   resourceURI?: string
 
-  urls?: Urls[]
+  urls?: Resource[]
 
-  series?: Series
+  series?: Resource
 
-  variants?: Variants[]
+  variants?: Resource[]
 
-  collections?: Collections[]
+  collections?: Resource[]
 
-  collectedIssues?: CollectedIssues[]
+  collectedIssues?: Resource[]
 
-  dates?: Dates[]
+  dates?: Date[]
 
-  prices?: Prices[]
+  prices?: Price[]
 
-  thumbnail?: Thumbnail
+  thumbnail?: Asset
 
-  images?: Images[]
+  images?: Asset[]
 
-  creators?: Creators
+  creators?: Context
 
-  characters?: Characters
+  characters?: Context
 
-  stories?: Stories
+  stories?: Context
 
-  events?: Events
+  events?: Context
 
   constructor(data?: Comic) {
     this.id = data.id

@@ -1,15 +1,14 @@
 import React, { FC, useState, useEffect, useContext } from 'react'
-import { get } from 'lodash'
 import { Card } from '../../components/Card'
 import { StyledCardContainer } from './FavoritesPage.styles'
-import axios from '../../services/api'
-import { getCharacterThumbnail, fetchWithLoading } from '../../utils'
+import { fetchWithLoading } from '../../utils'
 import { Spinner } from '../../components/Spinner/Spinner.styles'
 import { ComicsModal } from '../ComicsModal'
 import { UserStateContext, UserDispatchContext } from '../../context/user'
 import { Character } from '../../models/Character'
+import { MarvelService } from '../../services/marvelService'
 
-export const FavoritesPage: FC = (): JSX.Element => {
+export const FavoritesPage: FC = () => {
   const userState = useContext(UserStateContext)
   const userDispatch = useContext(UserDispatchContext)
   const [loading, setLoading] = useState(true)
@@ -19,18 +18,8 @@ export const FavoritesPage: FC = (): JSX.Element => {
 
   useEffect(() => {
     const getCharacters = async (): Promise<void> => {
-      const characters = []
-
-      const response = await Promise.all(
-        Object.keys(userState.favCharacters).map(async (character) =>
-          axios.get(`/characters/${character}`)
-        )
-      )
-
-      response.forEach((res) => {
-        const [result] = get(res, 'data.data.results')
-        characters.push(result)
-      })
+      const ids = Object.keys(userState.favCharacters)
+      const characters = await MarvelService.getCharactersByIds(ids)
 
       setCharacters(characters)
     }
@@ -47,11 +36,11 @@ export const FavoritesPage: FC = (): JSX.Element => {
     setShowModal(!showModal)
   }
 
-  const handleClickFavorite = (id: number, favorite: boolean): void => {
+  const handleClickFavorite = (character: Character, favorite: boolean): void => {
     userDispatch({
       type: !favorite ? 'ADD_FAV_CHARACTER' : 'REMOVE_FAV_CHARACTER',
       payload: {
-        id: id.toString(),
+        id: character.getId(),
       },
     })
   }
@@ -60,7 +49,7 @@ export const FavoritesPage: FC = (): JSX.Element => {
     <>
       {showModal && (
         <ComicsModal
-          characterId={selectedCharacter.id}
+          characterId={selectedCharacter.getId()}
           title={selectedCharacter.name}
           onClose={(): void => setShowModal(false)}
           onlyFavorites={true}
@@ -70,7 +59,7 @@ export const FavoritesPage: FC = (): JSX.Element => {
         <Spinner />
       ) : (
         characters.map((character, index) => {
-          const background = getCharacterThumbnail(character)
+          const background = character.getThumbnail()
           const favorite = !!userState.favCharacters[character.id.toString()]
 
           return (
@@ -79,7 +68,7 @@ export const FavoritesPage: FC = (): JSX.Element => {
                 title={character.name}
                 background={background}
                 onClickImage={(): void => handleClickCard(character)}
-                onClickFavorite={(): void => handleClickFavorite(character.id, favorite)}
+                onClickFavorite={(): void => handleClickFavorite(character, favorite)}
                 favorite={favorite}
               />
             </StyledCardContainer>

@@ -27,7 +27,7 @@
       }
     ],
     "react/prop-types": "off",
-    "@typescript-eslint/no-explicit-any": "error",
+    "@typescript-eslint/no-explicit-any": 1,
     "import/extensions": [
       "error",
       "ignorePackages",
@@ -43,7 +43,7 @@
     "no-constant-condition": 0,
     "no-shadow": 0,
     "no-param-reassign": 0,
-    "@typescript-eslint/explicit-function-return-type": 0
+    "@typescript-eslint/explicit-function-return-type": 1
   },
   "settings": {
     "import/resolver": {

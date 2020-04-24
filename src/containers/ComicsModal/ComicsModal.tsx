@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback, useRef, useContext } from 'rea
 import { get } from 'lodash'
 import { Spinner } from '../../components/Spinner'
 import { Modal } from '../../components/Modal'
-import { getComicThumbnail, fetchWithLoading } from '../../utils'
+import { fetchWithLoading } from '../../utils'
 import { ComicPreview } from '../../components/ComicPreview'
 import axios from '../../services/api'
 import { UserDispatchContext, UserStateContext } from '../../context/user'
@@ -165,7 +165,7 @@ export const ComicsModal = ({
       {hasComicsToFetch || comics.length > 0
         ? (comics || []).map(
             (comic, index): JSX.Element => {
-              const img = getComicThumbnail(comic)
+              const img = comic.getThumbnail()
               const favorite = userState.favCharacters[characterId]?.comics.includes(
                 comic.id.toString()
               )

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { ComicSummary } from '../../components/ComicSummary'
-import { fetchWithLoading, getComicThumbnail } from '../../utils'
+import { fetchWithLoading } from '../../utils'
 import { Spinner } from '../../components/Spinner/Spinner.styles'
 import { Comic } from '../../models/Comic'
 import { MarvelService } from '../../services/marvelService'
@@ -26,7 +26,7 @@ export const ComicPage = (): JSX.Element => {
   ) : (
     <ComicSummary
       title={comic.title}
-      imgUrl={getComicThumbnail(comic)}
+      imgUrl={comic.getThumbnail()}
       description={comic.description}
       data={comic.getData()}
     />

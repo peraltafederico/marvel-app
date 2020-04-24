@@ -1,4 +1,5 @@
 import moment from 'moment'
+import { get } from 'lodash'
 import { TextObject, Date, Price, Resource, Asset, Data } from '../interfaces/models'
 
 export class Comic {
@@ -90,6 +91,13 @@ export class Comic {
     this.characters = data.characters
     this.stories = data.stories
     this.events = data.events
+  }
+
+  getThumbnail(): string {
+    const path = get(this, 'thumbnail.path')
+    const ext = get(this, 'thumbnail.extension')
+
+    return `${path}.${ext}`
   }
 
   getData(): Record<string, string[]> {

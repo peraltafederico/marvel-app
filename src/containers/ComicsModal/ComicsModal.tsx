@@ -34,20 +34,20 @@ export const ComicsModal = ({
   const [total, setTotal] = useState(0)
   const loadingRef = useRef(null)
 
-  const handleClickFavorite = (id: number, favorite: boolean): void => {
+  const handleClickFavorite = (id: string, favorite: boolean): void => {
     !userState.favCharacters[characterId] &&
       userDispatch({
         type: 'ADD_FAV_CHARACTER',
         payload: {
-          id: characterId.toString(),
+          id: characterId,
         },
       })
 
     userDispatch({
       type: !favorite ? 'ADD_FAV_COMIC' : 'REMOVE_FAV_COMIC',
       payload: {
-        charId: characterId.toString(),
-        id: id.toString(),
+        charId: characterId,
+        id,
       },
     })
   }
@@ -163,21 +163,19 @@ export const ComicsModal = ({
   return (
     <Modal title={title} onClose={onClose}>
       {hasComicsToFetch || comics.length > 0
-        ? (comics || []).map(
+        ? comics.map(
             (comic, index): JSX.Element => {
               const img = comic.getThumbnail()
-              const favorite = userState.favCharacters[characterId]?.comics.includes(
-                comic.id.toString()
-              )
+              const favorite = userState.favCharacters[characterId]?.comics.includes(comic.getId())
 
               return (
                 <ComicPreview
                   key={`comicPreview${index}`}
-                  id={comic.id.toString()}
-                  onClickFavorite={(): void => handleClickFavorite(comic.id, favorite)}
-                  title={get(comic, 'title')}
+                  id={comic.getId()}
+                  onClickFavorite={(): void => handleClickFavorite(comic.getId(), favorite)}
+                  title={comic.title}
                   img={img}
-                  description={get(comic, 'description')}
+                  description={comic.description}
                   favorite={favorite}
                 />
               )

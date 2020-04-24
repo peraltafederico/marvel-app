@@ -100,6 +100,10 @@ export class Comic {
     return `${path}.${ext}`
   }
 
+  getId(): string {
+    return this.id.toString()
+  }
+
   getData(): Record<string, string[]> {
     const data: Record<string, string[]> = {}
 

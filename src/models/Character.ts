@@ -1,5 +1,5 @@
 import { get } from 'lodash'
-import { Resource, Asset, Context } from '../interfaces/models'
+import { Resource, Asset, Data } from '../interfaces/models'
 
 export class Character {
   id?: number
@@ -16,13 +16,13 @@ export class Character {
 
   thumbnail?: Asset
 
-  comics?: Context
+  comics?: Data
 
-  stories?: Context
+  stories?: Data
 
-  events?: Context
+  events?: Data
 
-  series?: Context
+  series?: Data
 
   constructor(data?: Character) {
     this.id = data.id

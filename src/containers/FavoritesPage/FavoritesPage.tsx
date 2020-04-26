@@ -5,8 +5,8 @@ import { fetchWithLoading } from '../../utils'
 import { Spinner } from '../../components/Spinner/Spinner.styles'
 import { ComicsModal } from '../ComicsModal'
 import { UserStateContext, UserDispatchContext } from '../../context/user'
-import { Character } from '../../models/Character'
 import { MarvelService } from '../../services/marvelService'
+import { Character } from '../../models/Character'
 
 export const FavoritesPage: FC = () => {
   const userState = useContext(UserStateContext)
@@ -19,7 +19,13 @@ export const FavoritesPage: FC = () => {
   useEffect(() => {
     const getCharacters = async (): Promise<void> => {
       const ids = Object.keys(userState.favCharacters)
-      const characters = await MarvelService.getCharactersByIds(ids)
+
+      const characters = await Promise.all(
+        ids.map(async (id) => {
+          const { character } = await MarvelService.getCharacterById(id)
+          return character
+        })
+      )
 
       setCharacters(characters)
     }
@@ -40,7 +46,7 @@ export const FavoritesPage: FC = () => {
     userDispatch({
       type: !favorite ? 'ADD_FAV_CHARACTER' : 'REMOVE_FAV_CHARACTER',
       payload: {
-        id: character.getId(),
+        id: character.id,
       },
     })
   }
@@ -49,7 +55,7 @@ export const FavoritesPage: FC = () => {
     <>
       {showModal && (
         <ComicsModal
-          characterId={selectedCharacter.getId()}
+          characterId={selectedCharacter.id}
           title={selectedCharacter.name}
           onClose={(): void => setShowModal(false)}
           onlyFavorites={true}
@@ -59,13 +65,13 @@ export const FavoritesPage: FC = () => {
         <Spinner />
       ) : (
         characters.map((character, index) => {
-          const favorite = !!userState.favCharacters[character.getId()]
+          const favorite = !!userState.favCharacters[character.id]
 
           return (
             <StyledCardContainer key={`character${index}`}>
               <Card
                 title={character.name}
-                background={character.getThumbnail()}
+                background={character.thumbnail}
                 onClickImage={(): void => handleClickCard(character)}
                 onClickFavorite={(): void => handleClickFavorite(character, favorite)}
                 favorite={favorite}

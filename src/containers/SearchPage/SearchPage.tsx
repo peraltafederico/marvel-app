@@ -6,9 +6,9 @@ import { fetchWithLoading } from '../../utils'
 import { Spinner } from '../../components/Spinner/Spinner.styles'
 import { ComicsModal } from '../ComicsModal'
 import { UserStateContext, UserDispatchContext } from '../../context/user'
-import { Character } from '../../models/Character'
 import { MarvelService } from '../../services/marvelService'
 import useQuery from '../../hooks/useQuery'
+import { Character } from '../../models/Character'
 
 export const SearchPage: FC = (): JSX.Element => {
   const userState = useContext(UserStateContext)
@@ -28,24 +28,42 @@ export const SearchPage: FC = (): JSX.Element => {
     const getCharacters = async (): Promise<void> => {
       // TODO: Review this
       const offset = Math.floor(Math.random() * 1400 + 1)
-      let characters: Character[]
+      let characters: Character[] = []
 
       // TODO: Fetch characters only with comics
       if (!characterParam && !comicParam) {
+        let options = {}
         if (inputParam) {
-          characters = await MarvelService.getCharacters({
+          options = {
             nameStartsWith: inputParam,
             limit: 20,
-          })
+          }
         } else {
-          characters = await MarvelService.getCharacters({
+          options = {
             offset,
             limit: 1,
-          })
+          }
         }
+        const { characters: charactersResponse } = await MarvelService.getCharacters(options)
+        characters = charactersResponse
       } else {
         const names = characterParam.split(',')
-        characters = await MarvelService.getCharactersByNames(names)
+
+        const charactersByName = await Promise.all(
+          names.map(async (name) => {
+            const { characters, pagination } = await MarvelService.getCharacters({ name })
+
+            if (pagination.count > 0) {
+              return characters
+            }
+
+            return undefined
+          })
+        )
+
+        characters = characters
+          .concat(...charactersByName)
+          .filter((character) => character !== undefined)
       }
 
       setCharacters(characters)
@@ -77,7 +95,7 @@ export const SearchPage: FC = (): JSX.Element => {
     userDispatch({
       type: !favorite ? 'ADD_FAV_CHARACTER' : 'REMOVE_FAV_CHARACTER',
       payload: {
-        id: character.getId(),
+        id: character.id,
       },
     })
   }
@@ -86,7 +104,7 @@ export const SearchPage: FC = (): JSX.Element => {
     <>
       {showModal && (
         <ComicsModal
-          characterId={selectedCharacter.getId()}
+          characterId={selectedCharacter.id}
           title={selectedCharacter.name}
           onClose={(): void => setShowModal(false)}
           names={comicParam ? comicParam.split(',') : []}
@@ -96,14 +114,12 @@ export const SearchPage: FC = (): JSX.Element => {
         <Spinner />
       ) : (
         characters.map((character, index) => {
-          const background = character.getThumbnail()
-          const favorite = !!userState.favCharacters[character.getId()]
-
+          const favorite = !!userState.favCharacters[character.id]
           return (
             <StyledCardContainer key={`character${index}`}>
               <Card
                 title={character.name}
-                background={background}
+                background={character.thumbnail}
                 onClickImage={(): void => handleClickCard(character)}
                 onClickFavorite={(): void => handleClickFavorite(character, favorite)}
                 favorite={favorite}

@@ -1,11 +1,10 @@
 import React, { useEffect, useState, useCallback, useRef, useContext } from 'react'
-import { get } from 'lodash'
 import { Spinner } from '../../components/Spinner'
 import { Modal } from '../../components/Modal'
 import { fetchWithLoading } from '../../utils'
 import { ComicPreview } from '../../components/ComicPreview'
-import axios from '../../services/api'
 import { UserDispatchContext, UserStateContext } from '../../context/user'
+import { MarvelService } from '../../services/marvelService'
 import { Comic } from '../../models/Comic'
 
 interface ComicsMoldal {
@@ -31,7 +30,7 @@ export const ComicsModal = ({
   const [comics, setComics] = useState([] as Comic[])
   const [hasComicsToFetch, setHasComicsToFetch] = useState(true)
   const [page, setPage] = useState(0)
-  const [total, setTotal] = useState(0)
+  const [total, setTotal] = useState(null)
   const loadingRef = useRef(null)
 
   const handleClickFavorite = (id: string, favorite: boolean): void => {
@@ -56,22 +55,28 @@ export const ComicsModal = ({
     (entities) => {
       const getComics = async (): Promise<void> => {
         const offset = page * defaultComicsAmount
-        const limit = total - offset < offset ? total - offset : defaultComicsAmount
+        const remainingComics = total - offset
+        const limit = remainingComics < offset ? remainingComics : defaultComicsAmount
 
-        const { data: res } = await axios.get(
-          `/characters/${characterId}/comics?&orderBy=-focDate&limit=${limit}&offset=${offset}`
-        )
-
-        const newComics = get(res, 'data.results')
-
-        if (!total) {
-          setTotal(get(res, 'data.total'))
+        const options = {
+          orderBy: '-focDate',
+          limit,
+          offset,
         }
 
-        if (newComics.length > 0) {
+        const { comics: newComics, pagination } = await MarvelService.getComicsByCharacterId(
+          characterId,
+          options
+        )
+
+        if (!total) {
+          setTotal(pagination.total)
+        }
+
+        if (pagination.count > 0) {
           setComics([...comics, ...newComics])
 
-          if ((total || get(res, 'data.total')) > offset + limit) {
+          if (pagination.total > offset + limit) {
             setPage(page + 1)
           } else {
             setHasComicsToFetch(false)
@@ -82,43 +87,40 @@ export const ComicsModal = ({
       }
 
       const getFavoritesComics = async (): Promise<void> => {
-        const comics = []
         const charId = characterId.toString()
 
-        const response = await Promise.all(
-          userState.favCharacters[charId].comics.map(async (comicId) =>
-            axios.get(`/comics/${comicId}`)
-          )
+        const comics = await Promise.all(
+          userState.favCharacters[charId].comics.map(async (comicId) => {
+            const { comic } = await MarvelService.getComicById(comicId)
+
+            return comic
+          })
         )
-
-        response.forEach((res) => {
-          const [result] = get(res, 'data.data.results')
-
-          comics.push(result)
-        })
 
         setComics(comics)
         setHasComicsToFetch(false)
       }
 
       const getComicsByNames = async (): Promise<void> => {
-        let comics = []
-        const response = await Promise.all(
-          names.map(async (name) => {
-            const title = name.split('#')[0]
-            const issueNumber = name.split('#')[1] || 0
+        let comics: Comic[] = []
 
-            return axios.get(
-              `/characters/${characterId}/comics?&title=${title}&issueNumber=${issueNumber}`
-            )
+        const comicsByName = await Promise.all(
+          names.map(async (name) => {
+            const [title, issueNumber] = name.split('#')
+            const { comics, pagination } = await MarvelService.getComicsByCharacterId(characterId, {
+              title,
+              issueNumber: issueNumber || 0,
+            })
+
+            if (pagination.count > 0) {
+              return comics
+            }
+
+            return undefined
           })
         )
 
-        const res = response
-          .filter((res) => get(res, 'data.data.results').length > 0)
-          .map((res) => get(res, 'data.data.results'))
-
-        comics = comics.concat(...res)
+        comics = comics.concat(...comicsByName).filter((character) => character !== undefined)
 
         setComics(comics)
         setHasComicsToFetch(false)
@@ -165,16 +167,17 @@ export const ComicsModal = ({
       {hasComicsToFetch || comics.length > 0
         ? comics.map(
             (comic, index): JSX.Element => {
-              const img = comic.getThumbnail()
-              const favorite = userState.favCharacters[characterId]?.comics.includes(comic.getId())
+              const favorite = userState.favCharacters[characterId]?.comics.includes(
+                comic.id.toString()
+              )
 
               return (
                 <ComicPreview
                   key={`comicPreview${index}`}
-                  id={comic.getId()}
-                  onClickFavorite={(): void => handleClickFavorite(comic.getId(), favorite)}
+                  id={comic.id.toString()}
+                  onClickFavorite={(): void => handleClickFavorite(comic.id.toString(), favorite)}
                   title={comic.title}
-                  img={img}
+                  img={comic.thumbnail}
                   description={comic.description}
                   favorite={favorite}
                 />

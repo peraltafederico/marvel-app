@@ -1,55 +1,72 @@
-import { get, head } from 'lodash'
+import { get, head, pick } from 'lodash'
 import querystring from 'querystring'
-import { AxiosResponse } from 'axios'
 import axios from './api'
+import { CharactersParams, ComicParams } from '../interfaces/services'
+import { Pagination } from '../models/Pagination'
+import MarvelHelper from '../helpers/marvelHelper'
+import { CharacterApiResponse } from '../models/CharacterApiResponse'
 import { Character } from '../models/Character'
-import { CharactersOptions } from '../interfaces/services'
-import { MarvelAPiResponse } from '../models/Response'
 import { Comic } from '../models/Comic'
+import { ComicApiResponse } from '../models/ComicApiResponse'
+
+interface MarvelApiResponse {
+  pagination: Pagination
+}
+
+interface GetCharacters extends MarvelApiResponse {
+  characters: Character[]
+}
+
+interface GetComics extends MarvelApiResponse {
+  comics: Comic[]
+}
+
+interface GetComic extends MarvelApiResponse {
+  comic: Comic
+}
+
+interface GetCharacter extends MarvelApiResponse {
+  character: Character
+}
 
 export class MarvelService {
-  static async getCharactersByNames(names: string[]): Promise<Character[]> {
-    const responses = await Promise.all(
-      names.map(async (name) =>
-        axios.get<MarvelAPiResponse<Character>>(`/characters?&name=${name}`)
-      )
+  static async getCharacters(params?: CharactersParams): Promise<GetCharacters> {
+    const { data: res } = await axios.get(`/characters?${querystring.stringify(params)}`)
+    const characters: CharacterApiResponse[] = get(res, 'data.results')
+    const formattedCharacters = characters.map((character) =>
+      MarvelHelper.formatCharacter(character)
     )
+    const pagination: Pagination = pick(res.data, ['offset', 'limit', 'total', 'count'])
 
-    return MarvelService.normalizeCharactersResponse(responses)
+    return { characters: formattedCharacters, pagination }
   }
 
-  static async getCharactersByIds(ids: string[]): Promise<Character[]> {
-    const responses = await Promise.all(
-      ids.map(async (id) => axios.get<MarvelAPiResponse<Character>>(`/characters/${id}`))
+  static async getComicsByCharacterId(id: string, params?: ComicParams): Promise<GetComics> {
+    const { data: res } = await axios.get(
+      `/characters/${id}/comics?${querystring.stringify(params)}`
     )
+    const comics: ComicApiResponse[] = get(res, 'data.results')
+    const formattedComics = comics.map((comic) => MarvelHelper.formatComic(comic))
+    const pagination: Pagination = pick(res.data, ['offset', 'limit', 'total', 'count'])
 
-    return MarvelService.normalizeCharactersResponse(responses)
+    return { comics: formattedComics, pagination }
   }
 
-  static async getCharacters(options: CharactersOptions): Promise<Character[]> {
-    const params = querystring.stringify(options)
-    const res = await axios.get(`/characters?${params}`)
-    const characters: Character[] = get(res, 'data.data.results')
+  static async getCharacterById(id: string, params?: CharactersParams): Promise<GetCharacter> {
+    const { data: res } = await axios.get(`/characters/${id}?${querystring.stringify(params)}`)
+    const character: CharacterApiResponse = head(get(res, 'data.results'))
+    const formattedCharacter = MarvelHelper.formatCharacter(character)
+    const pagination: Pagination = pick(res.data, ['offset', 'limit', 'total', 'count'])
 
-    return characters.map((character) => new Character(character))
+    return { character: formattedCharacter, pagination }
   }
 
-  static getComicById = async (id: string): Promise<Comic> => {
-    const res = await axios.get<MarvelAPiResponse<Comic>>(`/comics/${id}`)
+  static async getComicById(id: string, params?: ComicParams): Promise<GetComic> {
+    const { data: res } = await axios.get(`/comics/${id}?${querystring.stringify(params)}`)
+    const comic: ComicApiResponse = head(get(res, 'data.results'))
+    const formattedComic = MarvelHelper.formatComic(comic)
+    const pagination: Pagination = pick(res.data, ['offset', 'limit', 'total', 'count'])
 
-    return new Comic(head(get(res, 'data.data.results')))
-  }
-
-  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-  // eslint-disable-next-line class-methods-use-this
-  static normalizeCharactersResponse(
-    responses: AxiosResponse<MarvelAPiResponse<Character>>[]
-  ): Character[] {
-    return responses
-      .filter((res) => get(res, 'data.data.results').length > 0)
-      .map((res) => {
-        const char: Character = head(get(res, 'data.data.results'))
-        return new Character(char)
-      })
+    return { comic: formattedComic, pagination }
   }
 }

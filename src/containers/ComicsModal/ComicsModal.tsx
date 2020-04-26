@@ -87,10 +87,8 @@ export const ComicsModal = ({
       }
 
       const getFavoritesComics = async (): Promise<void> => {
-        const charId = characterId.toString()
-
         const comics = await Promise.all(
-          userState.favCharacters[charId].comics.map(async (comicId) => {
+          userState.favCharacters[characterId].comics.map(async (comicId) => {
             const { comic } = await MarvelService.getComicById(comicId)
 
             return comic
@@ -167,15 +165,13 @@ export const ComicsModal = ({
       {hasComicsToFetch || comics.length > 0
         ? comics.map(
             (comic, index): JSX.Element => {
-              const favorite = userState.favCharacters[characterId]?.comics.includes(
-                comic.id.toString()
-              )
+              const favorite = userState.favCharacters[characterId]?.comics.includes(comic.id)
 
               return (
                 <ComicPreview
                   key={`comicPreview${index}`}
-                  id={comic.id.toString()}
-                  onClickFavorite={(): void => handleClickFavorite(comic.id.toString(), favorite)}
+                  id={comic.id}
+                  onClickFavorite={(): void => handleClickFavorite(comic.id, favorite)}
                   title={comic.title}
                   img={comic.thumbnail}
                   description={comic.description}

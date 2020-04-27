@@ -1,4 +1,4 @@
-import { TextObject, Date, Price, Resource, Asset, Data } from '../interfaces/models'
+import { TextObject, Date, Price, Resource, Asset, Data } from './commons'
 
 export interface ComicApiResponse {
   id?: number

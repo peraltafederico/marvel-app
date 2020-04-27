@@ -6,7 +6,7 @@ import { Spinner } from '../../components/Spinner/Spinner.styles'
 import { ComicsModal } from '../ComicsModal'
 import { UserStateContext, UserDispatchContext } from '../../context/user'
 import { MarvelService } from '../../services/marvelService'
-import { Character } from '../../models/Character'
+import { Character } from '../../interfaces/Character'
 
 export const FavoritesPage: FC = () => {
   const userState = useContext(UserStateContext)

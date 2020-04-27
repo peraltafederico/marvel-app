@@ -4,7 +4,7 @@ import { ComicSummary } from '../../components/ComicSummary'
 import { fetchWithLoading } from '../../utils'
 import { Spinner } from '../../components/Spinner/Spinner.styles'
 import { MarvelService } from '../../services/marvelService'
-import { Comic } from '../../models/Comic'
+import { Comic } from '../../interfaces/Comic'
 
 export const ComicPage = (): JSX.Element => {
   const [loading, setLoading] = useState(true)

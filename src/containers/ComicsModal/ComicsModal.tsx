@@ -5,7 +5,7 @@ import { fetchWithLoading } from '../../utils'
 import { ComicPreview } from '../../components/ComicPreview'
 import { UserDispatchContext, UserStateContext } from '../../context/user'
 import { MarvelService } from '../../services/marvelService'
-import { Comic } from '../../models/Comic'
+import { Comic } from '../../interfaces/Comic'
 
 interface ComicsMoldal {
   title: string

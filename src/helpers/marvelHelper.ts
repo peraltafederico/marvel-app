@@ -1,10 +1,10 @@
 /* eslint-disable class-methods-use-this */
 import { get } from 'lodash'
 import moment from 'moment'
-import { ComicApiResponse } from '../models/ComicApiResponse'
-import { CharacterApiResponse } from '../models/CharacterApiResponse'
-import { Comic } from '../models/Comic'
-import { Character } from '../models/Character'
+import { ComicApiResponse } from '../interfaces/ComicApiResponse'
+import { CharacterApiResponse } from '../interfaces/CharacterApiResponse'
+import { Comic } from '../interfaces/Comic'
+import { Character } from '../interfaces/Character'
 
 class MarvelHelper {
   formatComic(comic: ComicApiResponse): Comic {

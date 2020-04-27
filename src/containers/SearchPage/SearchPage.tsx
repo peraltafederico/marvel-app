@@ -8,8 +8,8 @@ import { ComicsModal } from '../ComicsModal'
 import { UserStateContext, UserDispatchContext } from '../../context/user'
 import { MarvelService } from '../../services/marvelService'
 import useQuery from '../../hooks/useQuery'
-import { Character } from '../../models/Character'
-import { CharactersParams } from '../../interfaces/services'
+import { Character } from '../../interfaces/Character'
+import { CharactersParams } from '../../interfaces/CharactersParams'
 
 export const SearchPage: FC = (): JSX.Element => {
   const userState = useContext(UserStateContext)

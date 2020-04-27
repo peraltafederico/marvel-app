@@ -29,7 +29,7 @@ export const Content = styled.div`
   flex: 1;
 `
 
-export const Header = styled.div`
+export const NavBar = styled.div`
   display: flex;
   align-items: center;
 `

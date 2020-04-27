@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory, Switch, Route, Redirect } from 'react-router-dom'
 import * as Styled from './Layout.styles'
-import { Header } from '../../components/Header'
+import { NavBar } from '../../components/NavBar'
 import useDebounce from '../../hooks/useDebounce'
 import { ComicPage } from '../ComicPage'
 import { SearchPage } from '../SearchPage'
@@ -37,7 +37,7 @@ export const Layout = (): JSX.Element => {
 
   return (
     <>
-      <Header
+      <NavBar
         onChange={handleChange}
         value={value}
         starSelected={favorites}

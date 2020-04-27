@@ -3,9 +3,9 @@ import { faStar as faStarSolid, faSearch } from '@fortawesome/free-solid-svg-ico
 import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons'
 import { Link } from 'react-router-dom'
 import logo from '../../assets/logo.png'
-import * as Styled from './Header.styles'
+import * as Styled from './NavBar.styles'
 
-interface Header {
+interface NavBar {
   value: string
   starSelected: boolean
   onClickStar: () => void
@@ -13,13 +13,13 @@ interface Header {
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-export const Header = ({
+export const NavBar = ({
   onClickStar,
   onChange,
   value,
   starSelected,
   onClickLogo,
-}: Header): JSX.Element => {
+}: NavBar): JSX.Element => {
   return (
     <Styled.Container>
       <Styled.LogoContainer>

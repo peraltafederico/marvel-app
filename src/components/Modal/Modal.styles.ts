@@ -26,7 +26,7 @@ export const Modal = styled.div`
   }
 `
 
-export const Header = styled.div`
+export const NavBar = styled.div`
   display: flex;
   flex-flow: column;
   position: sticky;

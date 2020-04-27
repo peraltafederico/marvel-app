@@ -41,13 +41,13 @@ export const ComicPreview = ({
         <Styled.Image src={img} />
       </Styled.CoverPageLink>
       <Styled.Content>
-        <Styled.Header>
+        <Styled.NavBar>
           <Styled.Title>{title}</Styled.Title>
           <Styled.StarIcon
             onClick={onClickFavorite}
             icon={favorite ? faStarSolid : faStarRegular}
           />
-        </Styled.Header>
+        </Styled.NavBar>
         <Styled.DescriptionContainer ref={descRef}>
           <Styled.Description>{description}</Styled.Description>
           {withEllipsis && <Styled.Ellipsis />}

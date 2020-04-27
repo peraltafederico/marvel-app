@@ -35,6 +35,7 @@ export const Header = styled.div`
   background-color: white;
   padding: 9px 5px 15px 0;
   box-sizing: border-box;
+  z-index: 9;
 `
 
 export const CloseIcon = styled(FontAwesomeIcon)`
@@ -46,7 +47,6 @@ export const CloseIcon = styled(FontAwesomeIcon)`
 
 export const Title = styled.h2`
   margin: 0;
-  z-index: 9999;
 `
 
 export const Content = styled.div`

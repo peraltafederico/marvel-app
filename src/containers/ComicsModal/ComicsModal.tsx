@@ -5,7 +5,8 @@ import { fetchWithLoading } from '../../utils'
 import { ComicPreview } from '../../components/ComicPreview'
 import { UserDispatchContext, UserStateContext } from '../../context/user'
 import { MarvelService } from '../../services/marvelService'
-import { Comic } from '../../models/Comic'
+import { Comic } from '../../interfaces/Comic'
+import { ComicParams } from '../../interfaces/ComicParams'
 
 interface ComicsMoldal {
   title: string
@@ -60,7 +61,7 @@ export const ComicsModal = ({
         const remainingComics = total - offset
         const limit = remainingComics < offset ? remainingComics : defaultComicsAmount
 
-        const options = {
+        const options: ComicParams = {
           orderBy: '-focDate',
           limit,
           offset,

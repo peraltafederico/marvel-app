@@ -1,13 +1,14 @@
 import { get, head, pick } from 'lodash'
 import querystring from 'querystring'
 import axios from './api'
-import { CharactersParams, ComicParams } from '../interfaces/services'
-import { Pagination } from '../models/Pagination'
+import { CharactersParams } from '../interfaces/CharactersParams'
+import { Pagination } from '../interfaces/Pagination'
 import MarvelHelper from '../helpers/marvelHelper'
-import { CharacterApiResponse } from '../models/CharacterApiResponse'
-import { Character } from '../models/Character'
-import { Comic } from '../models/Comic'
-import { ComicApiResponse } from '../models/ComicApiResponse'
+import { CharacterApiResponse } from '../interfaces/CharacterApiResponse'
+import { Character } from '../interfaces/Character'
+import { Comic } from '../interfaces/Comic'
+import { ComicApiResponse } from '../interfaces/ComicApiResponse'
+import { ComicParams } from '../interfaces/ComicParams'
 
 interface MarvelApiResponse {
   pagination: Pagination
@@ -52,8 +53,8 @@ export class MarvelService {
     return { comics: formattedComics, pagination }
   }
 
-  static async getCharacterById(id: string, params?: CharactersParams): Promise<GetCharacter> {
-    const { data: res } = await axios.get(`/characters/${id}?${querystring.stringify(params)}`)
+  static async getCharacterById(id: string): Promise<GetCharacter> {
+    const { data: res } = await axios.get(`/characters/${id}`)
     const character: CharacterApiResponse = head(get(res, 'data.results'))
     const formattedCharacter = MarvelHelper.formatCharacter(character)
     const pagination: Pagination = pick(res.data, ['offset', 'limit', 'total', 'count'])
@@ -61,8 +62,8 @@ export class MarvelService {
     return { character: formattedCharacter, pagination }
   }
 
-  static async getComicById(id: string, params?: ComicParams): Promise<GetComic> {
-    const { data: res } = await axios.get(`/comics/${id}?${querystring.stringify(params)}`)
+  static async getComicById(id: string): Promise<GetComic> {
+    const { data: res } = await axios.get(`/comics/${id}`)
     const comic: ComicApiResponse = head(get(res, 'data.results'))
     const formattedComic = MarvelHelper.formatComic(comic)
     const pagination: Pagination = pick(res.data, ['offset', 'limit', 'total', 'count'])

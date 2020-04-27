@@ -1,4 +1,4 @@
-import { Resource, Asset, Data } from '../interfaces/models'
+import { Resource, Asset, Data } from './commons'
 
 export interface CharacterApiResponse {
   id?: number

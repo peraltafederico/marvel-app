@@ -1,0 +1,11 @@
+export type OrderBy =
+  | 'focDate'
+  | 'onsaleDate'
+  | 'title'
+  | 'issueNumber'
+  | 'modified'
+  | '-focDate'
+  | '-onsaleDate'
+  | '-title'
+  | '-issueNumber'
+  | '-modified'

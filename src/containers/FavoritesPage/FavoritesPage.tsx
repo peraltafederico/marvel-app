@@ -1,15 +1,14 @@
 import React, { FC, useState, useEffect, useContext } from 'react'
-import { get } from 'lodash'
 import { Card } from '../../components/Card'
 import { StyledCardContainer } from './FavoritesPage.styles'
-import axios from '../../services/api'
-import { getCharacterThumbnail, fetchWithLoading } from '../../utils'
+import { fetchWithLoading } from '../../utils'
 import { Spinner } from '../../components/Spinner/Spinner.styles'
 import { ComicsModal } from '../ComicsModal'
 import { UserStateContext, UserDispatchContext } from '../../context/user'
+import { MarvelService } from '../../services/marvelService'
 import { Character } from '../../models/Character'
 
-export const FavoritesPage: FC = (): JSX.Element => {
+export const FavoritesPage: FC = () => {
   const userState = useContext(UserStateContext)
   const userDispatch = useContext(UserDispatchContext)
   const [loading, setLoading] = useState(true)
@@ -19,18 +18,14 @@ export const FavoritesPage: FC = (): JSX.Element => {
 
   useEffect(() => {
     const getCharacters = async (): Promise<void> => {
-      const characters = []
+      const ids = Object.keys(userState.favCharacters)
 
-      const response = await Promise.all(
-        Object.keys(userState.favCharacters).map(async (character) =>
-          axios.get(`/characters/${character}`)
-        )
+      const characters = await Promise.all(
+        ids.map(async (id) => {
+          const { character } = await MarvelService.getCharacterById(id)
+          return character
+        })
       )
-
-      response.forEach((res) => {
-        const [result] = get(res, 'data.data.results')
-        characters.push(result)
-      })
 
       setCharacters(characters)
     }
@@ -42,16 +37,16 @@ export const FavoritesPage: FC = (): JSX.Element => {
     localStorage.setItem('favCharacters', JSON.stringify(userState))
   }, [userState])
 
-  const handleClickCard = (name: string, id: number): void => {
-    setSelectedCharacter({ id, name })
+  const handleClickCard = (character: Character): void => {
+    setSelectedCharacter(character)
     setShowModal(!showModal)
   }
 
-  const handleClickFavorite = (id: number, favorite: boolean): void => {
+  const handleClickFavorite = (character: Character, favorite: boolean): void => {
     userDispatch({
       type: !favorite ? 'ADD_FAV_CHARACTER' : 'REMOVE_FAV_CHARACTER',
       payload: {
-        id: id.toString(),
+        id: character.id,
       },
     })
   }
@@ -63,23 +58,23 @@ export const FavoritesPage: FC = (): JSX.Element => {
           characterId={selectedCharacter.id}
           title={selectedCharacter.name}
           onClose={(): void => setShowModal(false)}
-          onlyFavorites={true}
+          ids={userState.favCharacters[selectedCharacter.id].comics}
+          all={false}
         />
       )}
       {loading ? (
         <Spinner />
       ) : (
         characters.map((character, index) => {
-          const background = getCharacterThumbnail(character)
-          const favorite = !!userState.favCharacters[character.id.toString()]
+          const favorite = !!userState.favCharacters[character.id]
 
           return (
             <StyledCardContainer key={`character${index}`}>
               <Card
                 title={character.name}
-                background={background}
-                onClickImage={(): void => handleClickCard(character.name, character.id)}
-                onClickFavorite={(): void => handleClickFavorite(character.id, favorite)}
+                background={character.thumbnail}
+                onClickImage={(): void => handleClickCard(character)}
+                onClickFavorite={(): void => handleClickFavorite(character, favorite)}
                 favorite={favorite}
               />
             </StyledCardContainer>

@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { get } from 'lodash'
-import moment from 'moment'
 import { ComicSummary } from '../../components/ComicSummary'
-import axios from '../../services/api'
-import { fetchWithLoading, getComicThumbnail } from '../../utils'
+import { fetchWithLoading } from '../../utils'
 import { Spinner } from '../../components/Spinner/Spinner.styles'
+import { MarvelService } from '../../services/marvelService'
 import { Comic } from '../../models/Comic'
 
 export const ComicPage = (): JSX.Element => {
@@ -15,42 +13,22 @@ export const ComicPage = (): JSX.Element => {
 
   useEffect(() => {
     const getComic = async (): Promise<void> => {
-      const { data: res } = await axios.get(`/comics/${id}`)
-      const [result] = get(res, 'data.results')
+      const { comic } = await MarvelService.getComicById(id)
 
-      setComic(result)
+      setComic(comic)
     }
 
     fetchWithLoading(setLoading, getComic)
   }, [id])
-
-  const mergeComicData = (): Record<string, string[]> => {
-    const data: Record<string, string[]> = {}
-
-    const { date } = comic.dates.find((date) => date.type === 'onsaleDate')
-
-    data.published = [moment(date).format('MMMM DD, YYYY').toString()]
-
-    comic.creators.items.forEach((creator) => {
-      if (!data[creator.role]) {
-        data[creator.role] = [creator.name]
-        return
-      }
-
-      data[creator.role].push(creator.name)
-    })
-
-    return data
-  }
 
   return loading ? (
     <Spinner />
   ) : (
     <ComicSummary
       title={comic.title}
-      imgUrl={getComicThumbnail(comic)}
+      imgUrl={comic.thumbnail}
       description={comic.description}
-      data={mergeComicData()}
+      data={comic.data}
     />
   )
 }

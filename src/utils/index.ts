@@ -1,4 +1,7 @@
-export const cloneWithoutKey = (object: Record<string, any>, key: string): Record<string, any> => {
+export const cloneWithoutKey = (
+  object: Record<string, unknown>,
+  key: string
+): Record<string, unknown> => {
   const { [key]: deletedKey, ...newObject } = object
 
   return newObject

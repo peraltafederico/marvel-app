@@ -9,6 +9,7 @@ import { UserStateContext, UserDispatchContext } from '../../context/user'
 import { MarvelService } from '../../services/marvelService'
 import useQuery from '../../hooks/useQuery'
 import { Character } from '../../models/Character'
+import { CharactersParams } from '../../interfaces/services'
 
 export const SearchPage: FC = (): JSX.Element => {
   const userState = useContext(UserStateContext)
@@ -32,7 +33,7 @@ export const SearchPage: FC = (): JSX.Element => {
 
       // TODO: Fetch characters only with comics
       if (!characterParam && !comicParam) {
-        let options = {}
+        let options: CharactersParams = {}
         if (inputParam) {
           options = {
             nameStartsWith: inputParam,

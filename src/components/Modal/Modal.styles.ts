@@ -46,6 +46,7 @@ export const CloseIcon = styled(FontAwesomeIcon)`
 
 export const Title = styled.h2`
   margin: 0;
+  z-index: 9999;
 `
 
 export const Content = styled.div`

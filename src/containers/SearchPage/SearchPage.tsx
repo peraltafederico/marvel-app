@@ -104,7 +104,7 @@ export const SearchPage: FC = (): JSX.Element => {
     <>
       {showModal && (
         <ComicsModal
-          characterID={selectedCharacter.id}
+          characterId={selectedCharacter.id}
           title={selectedCharacter.name}
           onClose={(): void => setShowModal(false)}
           names={comicParam && comicParam.split(',')}

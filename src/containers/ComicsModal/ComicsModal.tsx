@@ -88,7 +88,7 @@ export const ComicsModal = ({
         }
       }
 
-      const getComicsByIDs = async (): Promise<void> => {
+      const getComicsByIds = async (): Promise<void> => {
         const comics = await Promise.all(
           ids.map(async (id) => {
             const { comic } = await MarvelService.getComicById(id)
@@ -132,7 +132,7 @@ export const ComicsModal = ({
         if (!all) {
           if (names.length > 0 || ids.length > 0) {
             names.length > 0 && fetchWithLoading(setLoading, getComicsByNames)
-            ids.length > 0 && fetchWithLoading(setLoading, getComicsByIDs)
+            ids.length > 0 && fetchWithLoading(setLoading, getComicsByIds)
           } else {
             setHasComicsToFetch(false)
           }

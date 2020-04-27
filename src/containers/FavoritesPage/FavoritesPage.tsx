@@ -55,7 +55,7 @@ export const FavoritesPage: FC = () => {
     <>
       {showModal && (
         <ComicsModal
-          characterID={selectedCharacter.id}
+          characterId={selectedCharacter.id}
           title={selectedCharacter.name}
           onClose={(): void => setShowModal(false)}
           ids={userState.favCharacters[selectedCharacter.id].comics}

@@ -104,10 +104,11 @@ export const SearchPage: FC = (): JSX.Element => {
     <>
       {showModal && (
         <ComicsModal
-          characterId={selectedCharacter.id}
+          characterID={selectedCharacter.id}
           title={selectedCharacter.name}
           onClose={(): void => setShowModal(false)}
-          names={comicParam ? comicParam.split(',') : []}
+          names={comicParam && comicParam.split(',')}
+          all={!comicParam}
         />
       )}
       {loading ? (

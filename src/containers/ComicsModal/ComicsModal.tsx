@@ -8,11 +8,12 @@ import { MarvelService } from '../../services/marvelService'
 import { Comic } from '../../models/Comic'
 
 interface ComicsMoldal {
-  characterId: string
   title: string
+  characterId: string
   onClose: () => void
   names?: string[]
-  onlyFavorites?: boolean
+  ids?: string[]
+  all?: boolean
 }
 
 const defaultComicsAmount = 20
@@ -21,8 +22,9 @@ export const ComicsModal = ({
   characterId,
   title,
   onClose,
-  onlyFavorites,
+  ids,
   names,
+  all,
 }: ComicsMoldal): JSX.Element => {
   const userState = useContext(UserStateContext)
   const userDispatch = useContext(UserDispatchContext)
@@ -86,10 +88,10 @@ export const ComicsModal = ({
         }
       }
 
-      const getFavoritesComics = async (): Promise<void> => {
+      const getComicsByIDs = async (): Promise<void> => {
         const comics = await Promise.all(
-          userState.favCharacters[characterId].comics.map(async (comicId) => {
-            const { comic } = await MarvelService.getComicById(comicId)
+          ids.map(async (id) => {
+            const { comic } = await MarvelService.getComicById(id)
 
             return comic
           })
@@ -127,15 +129,19 @@ export const ComicsModal = ({
       const [target] = entities
 
       if (!loading && hasComicsToFetch) {
-        if (names.length > 0 || onlyFavorites) {
-          names.length > 0 && fetchWithLoading(setLoading, getComicsByNames)
-          onlyFavorites && fetchWithLoading(setLoading, getFavoritesComics)
+        if (!all) {
+          if (names.length > 0 || ids.length > 0) {
+            names.length > 0 && fetchWithLoading(setLoading, getComicsByNames)
+            ids.length > 0 && fetchWithLoading(setLoading, getComicsByIDs)
+          } else {
+            setHasComicsToFetch(false)
+          }
         } else {
           target.isIntersecting && fetchWithLoading(setLoading, getComics)
         }
       }
     },
-    [loading, characterId, page, comics, hasComicsToFetch, total, onlyFavorites, names, userState]
+    [loading, characterId, page, comics, hasComicsToFetch, total, ids, names, all]
   )
 
   useEffect(() => {
@@ -189,5 +195,6 @@ export const ComicsModal = ({
 
 ComicsModal.defaultProps = {
   names: [],
-  onlyFavorites: false,
+  ids: [],
+  all: true,
 }

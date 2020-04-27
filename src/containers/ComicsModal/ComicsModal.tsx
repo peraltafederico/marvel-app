@@ -9,10 +9,10 @@ import { Comic } from '../../models/Comic'
 
 interface ComicsMoldal {
   characterId: string
-  onlyFavorites?: boolean
   title: string
-  names?: string[]
   onClose: () => void
+  names?: string[]
+  onlyFavorites?: boolean
 }
 
 const defaultComicsAmount = 20
@@ -126,12 +126,13 @@ export const ComicsModal = ({
 
       const [target] = entities
 
-      if ((names || []).length > 0) {
-        !loading && hasComicsToFetch && fetchWithLoading(setLoading, getComicsByNames)
-      } else if (onlyFavorites) {
-        !loading && hasComicsToFetch && fetchWithLoading(setLoading, getFavoritesComics)
-      } else if (target.isIntersecting && hasComicsToFetch) {
-        !loading && fetchWithLoading(setLoading, getComics)
+      if (!loading && hasComicsToFetch) {
+        if (names.length > 0 || onlyFavorites) {
+          names.length > 0 && fetchWithLoading(setLoading, getComicsByNames)
+          onlyFavorites && fetchWithLoading(setLoading, getFavoritesComics)
+        } else {
+          target.isIntersecting && fetchWithLoading(setLoading, getComics)
+        }
       }
     },
     [loading, characterId, page, comics, hasComicsToFetch, total, onlyFavorites, names, userState]
@@ -184,4 +185,9 @@ export const ComicsModal = ({
       <div ref={loadingRef}>{loading && <Spinner />}</div>
     </Modal>
   )
+}
+
+ComicsModal.defaultProps = {
+  names: [],
+  onlyFavorites: false,
 }

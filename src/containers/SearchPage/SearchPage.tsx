@@ -75,7 +75,7 @@ export const SearchPage: FC = () => {
     if (inputWithComicUrl) {
       const id = inputWithComicUrl[inputWithComicUrl.length - 1]
 
-      history.push(`/comic/${id}?input=${inputParam}`)
+      history.replace(`/comic/${id}?input=${inputParam}`)
     } else {
       fetchWithLoading(setLoading, getCharacters)
     }

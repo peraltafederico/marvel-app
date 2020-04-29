@@ -20,6 +20,7 @@ export const Layout: FC<Layout> = ({ children }: Layout) => {
     if (alreadySearched && inputParam !== value) {
       history.push(`/search?input=${search}`)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search, history])
 
   useEffect(() => {

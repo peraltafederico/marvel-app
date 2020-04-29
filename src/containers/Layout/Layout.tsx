@@ -1,64 +1,46 @@
-import React, { useState, useEffect } from 'react'
-import { useHistory, Switch, Route, Redirect } from 'react-router-dom'
+import React, { useState, useEffect, FC } from 'react'
+import { useHistory, useLocation } from 'react-router-dom'
 import * as Styled from './Layout.styles'
 import { NavBar } from '../../components/NavBar'
 import useDebounce from '../../hooks/useDebounce'
-import { ComicPage } from '../ComicPage'
-import { SearchPage } from '../SearchPage'
-import { FavoritesPage } from '../FavoritesPage'
+import useQuery from '../../hooks/useQuery'
 
-export const Layout = (): JSX.Element => {
+interface Layout {
+  children: React.ReactNode
+}
+
+export const Layout: FC<Layout> = ({ children }: Layout) => {
   const history = useHistory()
-  const [value, setValue] = useState('')
-  const [favorites, setFavorites] = useState(false)
+  const query = useQuery(`${useLocation().search}`)
+  const inputParam = query.get('input') || ''
+  const [value, setValue] = useState(inputParam)
   const [search, alreadySearched] = useDebounce(value, 500)
 
   useEffect(() => {
-    if (alreadySearched) {
+    if (alreadySearched && inputParam !== value) {
       history.push(`/search?input=${search}`)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search, history])
 
+  useEffect(() => {
+    setValue(inputParam)
+  }, [inputParam])
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    const { value } = event.currentTarget
-    setFavorites(false)
-    setValue(value)
-  }
-
-  const handleClickFavorites = (): void => {
-    setFavorites(!favorites)
-    !favorites ? history.push(`/favorites`) : history.push(`/search`)
-  }
-
-  const handleClickLogo = (): void => {
-    setValue('')
-    setFavorites(false)
+    setValue(event.currentTarget.value)
   }
 
   return (
     <>
       <NavBar
-        onChange={handleChange}
         value={value}
-        starSelected={favorites}
-        onClickStar={handleClickFavorites}
-        onClickLogo={handleClickLogo}
+        onChange={handleChange}
+        starSelected={window.location.pathname === '/favorites'}
+        starLinkPath={window.location.pathname === '/favorites' ? '/search' : '/favorites'}
       />
       <Styled.ContentContainer>
-        <Styled.Content>
-          <Switch>
-            <Route path="/comic/:id">
-              <ComicPage />
-            </Route>
-            <Route path="/search">
-              <SearchPage />
-            </Route>
-            <Route path="/favorites">
-              <FavoritesPage />
-            </Route>
-            <Redirect from="*" to="/search" />
-          </Switch>
-        </Styled.Content>
+        <Styled.Content>{children}</Styled.Content>
       </Styled.ContentContainer>
     </>
   )

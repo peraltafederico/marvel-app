@@ -10,8 +10,9 @@ import { MarvelService } from '../../services/marvelService'
 import useQuery from '../../hooks/useQuery'
 import { Character } from '../../interfaces/Character'
 import { CharactersParams } from '../../interfaces/CharactersParams'
+import { Layout } from '../Layout'
 
-export const SearchPage: FC = (): JSX.Element => {
+export const SearchPage: FC = () => {
   const userState = useContext(UserStateContext)
   const userDispatch = useContext(UserDispatchContext)
   const [loading, setLoading] = useState(true)
@@ -22,7 +23,6 @@ export const SearchPage: FC = (): JSX.Element => {
   const inputParam = query.get('input')
   const characterParam = query.get('character')
   const comicParam = query.get('comic')
-
   const history = useHistory()
 
   useEffect(() => {
@@ -75,7 +75,7 @@ export const SearchPage: FC = (): JSX.Element => {
     if (inputWithComicUrl) {
       const id = inputWithComicUrl[inputWithComicUrl.length - 1]
 
-      history.push(`/comic/${id}`)
+      history.push(`/comic/${id}?input=${inputParam}`)
     } else {
       fetchWithLoading(setLoading, getCharacters)
     }
@@ -102,7 +102,7 @@ export const SearchPage: FC = (): JSX.Element => {
   }
 
   return (
-    <>
+    <Layout>
       {showModal && (
         <ComicsModal
           characterId={selectedCharacter.id}
@@ -130,6 +130,6 @@ export const SearchPage: FC = (): JSX.Element => {
           )
         })
       )}
-    </>
+    </Layout>
   )
 }

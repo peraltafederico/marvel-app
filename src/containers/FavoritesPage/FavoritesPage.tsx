@@ -7,6 +7,7 @@ import { ComicsModal } from '../ComicsModal'
 import { UserStateContext, UserDispatchContext } from '../../context/user'
 import { MarvelService } from '../../services/marvelService'
 import { Character } from '../../interfaces/Character'
+import { Layout } from '../Layout'
 
 export const FavoritesPage: FC = () => {
   const userState = useContext(UserStateContext)
@@ -52,7 +53,7 @@ export const FavoritesPage: FC = () => {
   }
 
   return (
-    <>
+    <Layout>
       {showModal && (
         <ComicsModal
           characterId={selectedCharacter.id}
@@ -81,6 +82,6 @@ export const FavoritesPage: FC = () => {
           )
         })
       )}
-    </>
+    </Layout>
   )
 }

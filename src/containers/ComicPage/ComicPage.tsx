@@ -5,6 +5,7 @@ import { fetchWithLoading } from '../../utils'
 import { Spinner } from '../../components/Spinner/Spinner.styles'
 import { MarvelService } from '../../services/marvelService'
 import { Comic } from '../../interfaces/Comic'
+import { Layout } from '../Layout'
 
 export const ComicPage = (): JSX.Element => {
   const [loading, setLoading] = useState(true)
@@ -21,14 +22,18 @@ export const ComicPage = (): JSX.Element => {
     fetchWithLoading(setLoading, getComic)
   }, [id])
 
-  return loading ? (
-    <Spinner />
-  ) : (
-    <ComicSummary
-      title={comic.title}
-      imgUrl={comic.thumbnail}
-      description={comic.description}
-      data={comic.data}
-    />
+  return (
+    <Layout>
+      {loading ? (
+        <Spinner />
+      ) : (
+        <ComicSummary
+          title={comic.title}
+          imgUrl={comic.thumbnail}
+          description={comic.description}
+          data={comic.data}
+        />
+      )}
+    </Layout>
   )
 }

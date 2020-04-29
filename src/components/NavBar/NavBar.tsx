@@ -7,23 +7,16 @@ import * as Styled from './NavBar.styles'
 
 interface NavBar {
   value: string
+  starLinkPath: string
   starSelected: boolean
-  onClickStar: () => void
-  onClickLogo: () => void
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-export const NavBar = ({
-  onClickStar,
-  onChange,
-  value,
-  starSelected,
-  onClickLogo,
-}: NavBar): JSX.Element => {
+export const NavBar = ({ onChange, value, starSelected, starLinkPath }: NavBar): JSX.Element => {
   return (
     <Styled.Container>
       <Styled.LogoContainer>
-        <Link to="/" onClick={onClickLogo}>
+        <Link to="/">
           <Styled.Logo src={logo} alt="Logo" />
         </Link>
       </Styled.LogoContainer>
@@ -31,11 +24,9 @@ export const NavBar = ({
       <Styled.InputContainer>
         <Styled.SearchIcon size="lg" icon={faSearch} />
         <Styled.Input onChange={onChange} value={value} type="text" placeholder="Buscar" />
-        <Styled.StarIcon
-          size="lg"
-          onClick={onClickStar}
-          icon={starSelected ? faStarSolid : faStarRegular}
-        />
+        <Link to={starLinkPath}>
+          <Styled.StarIcon size="lg" icon={starSelected ? faStarSolid : faStarRegular} />
+        </Link>
       </Styled.InputContainer>
       <Styled.Divider height="25px" />
     </Styled.Container>

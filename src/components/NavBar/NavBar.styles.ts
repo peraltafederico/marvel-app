@@ -17,7 +17,7 @@ export const Container = styled.div`
   box-sizing: border-box;
   align-items: center;
   box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1);
-  background-color: white;
+  background-color: ${(props): string => props.theme.content.background};
 `
 
 export const InputContainer = styled.div`
@@ -26,12 +26,12 @@ export const InputContainer = styled.div`
 `
 
 export const SearchIcon = styled(FontAwesomeIcon)`
-  color: rgba(0, 0, 0, 0.1);
+  color: ${(props): string => props.theme.content.iconColor};
   padding: 10px;
 `
 
 export const StarIcon = styled(FontAwesomeIcon)`
-  color: rgba(0, 0, 0, 0.1);
+  color: ${(props): string => props.theme.content.iconColor};
   padding: 10px;
   &:hover {
     cursor: pointer;
@@ -42,6 +42,8 @@ export const Input = styled.input`
   width: 100%;
   padding: 10px;
   border: none;
+  background-color: ${(props): string => props.theme.content.background};
+  color: ${(props): string => props.theme.content.textColor};
 `
 
 export const LogoContainer = styled.div`
@@ -61,5 +63,5 @@ export const Divider = styled.div<DividerProps>`
   width: 1px;
   height: ${(props): string => (props.height ? props.height : '15px')};
   margin: 0 10px;
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: ${(props): string => props.theme.content.iconColor};
 `

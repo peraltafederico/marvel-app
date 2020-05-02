@@ -6,6 +6,6 @@ export const Backdrop = styled.div`
   bottom: 0px;
   left: 0px;
   right: 0px;
-  background-color: #00000076;
+  background-color: ${(props): string => props.theme.backdrop.background};
   z-index: 99;
 `

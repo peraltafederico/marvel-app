@@ -14,7 +14,7 @@ export const Modal = styled.div`
   height: 448px;
   border-radius: 10px;
   padding: 0 15px 15px;
-  background-color: white;
+  background-color: ${(props): string => props.theme.content.background};
   z-index: 9999;
   overflow: auto;
   ::-webkit-scrollbar {
@@ -26,19 +26,20 @@ export const Modal = styled.div`
   }
 `
 
-export const NavBar = styled.div`
+export const Header = styled.div`
   display: flex;
   flex-flow: column;
   position: sticky;
   top: 0;
   width: 437px;
-  background-color: white;
+  background-color: ${(props): string => props.theme.content.background};
   padding: 9px 5px 15px 0;
   box-sizing: border-box;
   z-index: 9;
 `
 
 export const CloseIcon = styled(FontAwesomeIcon)`
+  color: ${(props): string => props.theme.content.iconColor};
   align-self: flex-end;
   &:hover {
     cursor: pointer;
@@ -47,6 +48,7 @@ export const CloseIcon = styled(FontAwesomeIcon)`
 
 export const Title = styled.h2`
   margin: 0;
+  color: ${(props): string => props.theme.content.textColor};
 `
 
 export const Content = styled.div`

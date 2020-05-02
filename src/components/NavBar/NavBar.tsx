@@ -10,9 +10,18 @@ interface NavBar {
   starLinkPath: string
   starSelected: boolean
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
+  onClickThemeIcon: () => void
+  theme: string
 }
 
-export const NavBar = ({ onChange, value, starSelected, starLinkPath }: NavBar): JSX.Element => {
+export const NavBar = ({
+  onChange,
+  value,
+  starSelected,
+  starLinkPath,
+  onClickThemeIcon,
+  theme,
+}: NavBar): JSX.Element => {
   return (
     <Styled.Container>
       <Styled.LogoContainer>
@@ -29,7 +38,7 @@ export const NavBar = ({ onChange, value, starSelected, starLinkPath }: NavBar):
         </Link>
       </Styled.InputContainer>
       <Styled.Divider height="25px" />
-      <Styled.Icon size="lg" icon={starSelected ? faSun : faMoon} />
+      <Styled.Icon onClick={onClickThemeIcon} size="lg" icon={theme === 'light' ? faMoon : faSun} />
     </Styled.Container>
   )
 }

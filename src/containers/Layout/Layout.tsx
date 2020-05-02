@@ -1,9 +1,10 @@
-import React, { useState, useEffect, FC } from 'react'
+import React, { useState, useEffect, FC, useContext } from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
 import * as Styled from './Layout.styles'
 import { NavBar } from '../../components/NavBar'
 import useDebounce from '../../hooks/useDebounce'
 import useQuery from '../../hooks/useQuery'
+import { AppStateContext, AppDispatchContext } from '../../context/app'
 
 interface Layout {
   children: React.ReactNode
@@ -15,6 +16,8 @@ export const Layout: FC<Layout> = ({ children }: Layout) => {
   const inputParam = query.get('input') || ''
   const [value, setValue] = useState(inputParam)
   const [search, alreadySearched] = useDebounce(value, 500)
+  const appDispatch = useContext(AppDispatchContext)
+  const appState = useContext(AppStateContext)
 
   useEffect(() => {
     if (alreadySearched && inputParam !== value) {
@@ -27,17 +30,28 @@ export const Layout: FC<Layout> = ({ children }: Layout) => {
     setValue(inputParam)
   }, [inputParam])
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+  const handleChangeInput = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setValue(event.currentTarget.value)
+  }
+
+  const handleChangeTheme = (): void => {
+    appDispatch({
+      type: 'CHANGE_THEME',
+      payload: {
+        theme: appState.theme === 'light' ? 'dark' : 'light',
+      },
+    })
   }
 
   return (
     <>
       <NavBar
         value={value}
-        onChange={handleChange}
+        onChange={handleChangeInput}
         starSelected={window.location.pathname === '/favorites'}
         starLinkPath={window.location.pathname === '/favorites' ? '/search' : '/favorites'}
+        onClickThemeIcon={handleChangeTheme}
+        theme={appState.theme}
       />
       <Styled.ContentContainer>
         <Styled.Content>{children}</Styled.Content>

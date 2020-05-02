@@ -33,7 +33,7 @@ export const Header = styled.div`
   top: 0;
   width: 437px;
   background-color: ${(props): string => props.theme.content.background};
-  padding: 9px 5px 15px 0;
+  padding: 25px 5px 20px 0;
   box-sizing: border-box;
   z-index: 9;
 `
@@ -41,6 +41,8 @@ export const Header = styled.div`
 export const CloseIcon = styled(FontAwesomeIcon)`
   color: ${(props): string => props.theme.content.iconColor};
   align-self: flex-end;
+  position: absolute;
+  top: 15px;
   &:hover {
     cursor: pointer;
   }

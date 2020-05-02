@@ -10,9 +10,14 @@ type ActionTypes =
   | 'REMOVE_FAV_CHARACTER'
   | 'REMOVE_FAV_COMIC'
 
+interface Payload {
+  id?: string
+  charId?: string
+}
+
 interface Action {
   type: ActionTypes
-  payload: any
+  payload: Payload
 }
 interface Character {
   comics?: string[]

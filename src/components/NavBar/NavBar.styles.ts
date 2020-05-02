@@ -30,7 +30,7 @@ export const SearchIcon = styled(FontAwesomeIcon)`
   padding: 10px;
 `
 
-export const StarIcon = styled(FontAwesomeIcon)`
+export const Icon = styled(FontAwesomeIcon)`
   color: ${(props): string => props.theme.content.iconColor};
   padding: 10px;
   &:hover {

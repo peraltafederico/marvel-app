@@ -1,7 +1,5 @@
 import styled from 'styled-components'
 
-const color = '#3e3e3e'
-
 export const Container = styled.div`
   display: flex;
   width: 100%;
@@ -25,7 +23,7 @@ export const Content = styled.div`
 
 export const Title = styled.h1`
   margin: 0 0 50px 0;
-  color: ${color};
+  color: ${(props): string => props.theme.content.textColor};
 `
 
 export const ComicInfo = styled.div`
@@ -36,7 +34,7 @@ export const ComicInfo = styled.div`
 
 export const Data = styled.span`
   font-size: 20px;
-  color: ${color};
+  color: ${(props): string => props.theme.content.textColor};
   margin-bottom: 2px;
   font-weight: bold;
   opacity: 1;
@@ -46,7 +44,7 @@ export const Description = styled.p`
   font-size: 21px;
   margin-bottom: 20px;
   line-height: 1.3em;
-  color: ${color};
+  color: ${(props): string => props.theme.content.textColor};
 
   & ul {
     padding-inline-start: 20px;

@@ -36,10 +36,11 @@ export const NavBar = styled.div`
 
 export const Title = styled.h5`
   margin: 0 5px 0 0;
+  color: ${(props): string => props.theme.content.textColor};
 `
 
 export const StarIcon = styled(FontAwesomeIcon)`
-  color: grey;
+  color: ${(props): string => props.theme.content.iconColor};
   &:hover {
     cursor: pointer;
   }
@@ -58,6 +59,7 @@ export const Description = styled.p`
   margin: 5px 0 0;
   padding-right: 18px;
   text-align: justify;
+  color: ${(props): string => props.theme.content.textColor};
 `
 
 export const Ellipsis = styled.div`
@@ -66,5 +68,6 @@ export const Ellipsis = styled.div`
     content: '...';
     bottom: 3px;
     right: 6px;
+    color: ${(props): string => props.theme.content.textColor};
   }
 `

@@ -14,10 +14,10 @@ export const Modal: FC<Modal> = ({ children, onClose, title }: Modal): JSX.Eleme
     <>
       <Backdrop onClick={onClose} />
       <Styled.Modal>
-        <Styled.NavBar>
-          <Styled.CloseIcon onClick={onClose} icon={faTimes} />
+        <Styled.Header>
+          <Styled.CloseIcon size="lg" onClick={onClose} icon={faTimes} />
           <Styled.Title>{title}</Styled.Title>
-        </Styled.NavBar>
+        </Styled.Header>
         <Styled.Content>{children}</Styled.Content>
       </Styled.Modal>
     </>

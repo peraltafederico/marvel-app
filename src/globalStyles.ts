@@ -1,9 +1,8 @@
 import { createGlobalStyle } from 'styled-components'
 
-// TODO: hide scroll when modal appears
-
 const GlobalStyle = createGlobalStyle`
   body {
+    background: ${(props): string => props.theme.body.background};
     margin: 0;
     padding: 0;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",

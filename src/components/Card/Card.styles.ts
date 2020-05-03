@@ -16,7 +16,7 @@ export const Container = styled.div<Container>`
 `
 
 export const StarIcon = styled(FontAwesomeIcon)`
-  color: white;
+  color: ${(props): string => props.theme.card.iconColor};
   position: absolute;
   top: 15px;
   right: 15px;
@@ -26,7 +26,7 @@ export const StarIcon = styled(FontAwesomeIcon)`
 `
 
 export const Title = styled.h3`
-  color: #fff;
+  color: ${(props): string => props.theme.card.textColor};
   position: absolute;
   bottom: 0px;
   left: 15px;

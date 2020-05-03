@@ -172,16 +172,19 @@ export const ComicsModal = ({
   }, [userState])
 
   useEffect(() => {
-    const initialHeight = document.documentElement.scrollTop
+    const documentElementInitialHeight = document.documentElement.scrollTop
+    const bodyInitialHeight = document.body.scrollTop
 
     if (width < screenConfig.desktop) {
       document.documentElement.scrollTop = 0
+      document.body.scrollTop = 0
       document.body.style.overflowY = 'hidden'
     }
 
     return (): void => {
       document.body.style.overflowY = 'auto'
-      document.documentElement.scrollTop = initialHeight
+      document.documentElement.scrollTop = documentElementInitialHeight
+      document.body.scrollTop = bodyInitialHeight
     }
   }, [width])
 

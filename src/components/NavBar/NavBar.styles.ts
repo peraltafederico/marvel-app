@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { media } from '../../theme/media'
 
 interface DividerProps {
   height?: string
@@ -18,6 +19,10 @@ export const Container = styled.div`
   align-items: center;
   box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1);
   background-color: ${(props): string => props.theme.content.background};
+
+  ${media.mobile} {
+    padding: 5px;
+  }
 `
 
 export const InputContainer = styled.div`
@@ -57,6 +62,11 @@ export const LogoContainer = styled.div`
 export const Logo = styled.img`
   width: 100px;
   height: 42px;
+
+  ${media.mobile} {
+    width: 80px;
+    height: 35px;
+  }
 `
 
 export const Divider = styled.div<DividerProps>`
@@ -64,4 +74,8 @@ export const Divider = styled.div<DividerProps>`
   height: ${(props): string => (props.height ? props.height : '15px')};
   margin: 0 10px;
   background-color: ${(props): string => props.theme.content.iconColor};
+
+  ${media.mobile} {
+    margin: 0;
+  }
 `

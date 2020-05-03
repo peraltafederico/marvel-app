@@ -18,6 +18,7 @@ export const Modal = styled.div`
   background-color: ${(props): string => props.theme.content.background};
   z-index: 9999;
   overflow: auto;
+  box-sizing: border-box;
   ::-webkit-scrollbar {
     width: 5px;
   }
@@ -27,13 +28,9 @@ export const Modal = styled.div`
   }
 
   ${media.mobile} {
-    position: absolute;
     top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    width: auto;
-    height: -webkit-fill-available;
+    width: 100%;
+    height: 100%;
     border-radius: 0;
     padding: 0 8px 8px;
 

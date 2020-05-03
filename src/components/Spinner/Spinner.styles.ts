@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { media } from '../../theme/media'
 
 export const Spinner = styled.div`
   color: #ed1d24;
@@ -15,6 +16,11 @@ export const Spinner = styled.div`
   transform: translateZ(0);
   -webkit-animation: load6 1.7s infinite ease, round 1.7s infinite ease;
   animation: load6 1.7s infinite ease, round 1.7s infinite ease;
+
+  ${media.mobile} {
+    font-size: 80px;
+  }
+
   @-webkit-keyframes load6 {
     0% {
       box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em,

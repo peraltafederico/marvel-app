@@ -33,7 +33,7 @@ export const Modal = styled.div`
     left: 0;
     right: 0;
     width: auto;
-    height: auto;
+    height: -webkit-fill-available;
     border-radius: 0;
     padding: 0 8px 8px;
 

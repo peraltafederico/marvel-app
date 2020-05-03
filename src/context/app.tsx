@@ -20,7 +20,7 @@ interface State {
   theme: ThemeTypes
 }
 
-const persistedState = JSON.parse(localStorage.getItem('theme'))
+const persistedState = JSON.parse(localStorage.getItem('app'))
 
 const initialState = {
   theme: 'light',

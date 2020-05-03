@@ -35,7 +35,7 @@ export const FavoritesPage: FC = () => {
   }, [])
 
   useEffect(() => {
-    localStorage.setItem('favCharacters', JSON.stringify(userState))
+    localStorage.setItem('user', JSON.stringify(userState))
   }, [userState])
 
   const handleClickCard = (character: Character): void => {

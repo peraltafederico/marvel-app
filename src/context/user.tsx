@@ -29,7 +29,7 @@ interface State {
   }
 }
 
-const persistedState = JSON.parse(localStorage.getItem('favCharacters'))
+const persistedState = JSON.parse(localStorage.getItem('user'))
 
 const initialState = {
   favCharacters: {},

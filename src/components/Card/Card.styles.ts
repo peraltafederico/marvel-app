@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { media } from '../../theme/media'
 
 interface Container {
   background: string
@@ -13,6 +14,11 @@ export const Container = styled.div<Container>`
   height: 380px;
   position: relative;
   border-radius: 5px;
+
+  ${media.mobile} {
+    width: 200px;
+    height: 300px;
+  }
 `
 
 export const StarIcon = styled(FontAwesomeIcon)`

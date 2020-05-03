@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { media } from '../../theme/media'
 
 export const Modal = styled.div`
   position: fixed;
@@ -24,6 +25,26 @@ export const Modal = styled.div`
     background: black;
     border-radius: 15px;
   }
+
+  ${media.mobile} {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: auto;
+    height: -webkit-fill-available;
+    border-radius: 0;
+    padding: 0 8px 8px;
+
+    ::-webkit-scrollbar {
+      width: none;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: none;
+      border-radius: none;
+    }
+  }
 `
 
 export const Header = styled.div`
@@ -31,11 +52,14 @@ export const Header = styled.div`
   flex-flow: column;
   position: sticky;
   top: 0;
-  width: 437px;
   background-color: ${(props): string => props.theme.content.background};
   padding: 25px 5px 20px 0;
   box-sizing: border-box;
   z-index: 9;
+
+  ${media.mobile} {
+    width: auto;
+  }
 `
 
 export const CloseIcon = styled(FontAwesomeIcon)`
@@ -51,6 +75,10 @@ export const CloseIcon = styled(FontAwesomeIcon)`
 export const Title = styled.h2`
   margin: 0;
   color: ${(props): string => props.theme.content.textColor};
+
+  ${media.mobile} {
+    text-align: center;
+  }
 `
 
 export const Content = styled.div`

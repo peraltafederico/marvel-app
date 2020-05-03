@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useCallback, useRef, useContext } from 'react'
+import { useWindowSize } from '@reach/window-size'
 import { Spinner } from '../../components/Spinner'
 import { Modal } from '../../components/Modal'
 import { fetchWithLoading } from '../../utils'
@@ -7,6 +8,7 @@ import { UserDispatchContext, UserStateContext } from '../../context/user'
 import { MarvelService } from '../../services/marvelService'
 import { Comic } from '../../interfaces/Comic'
 import { ComicParams } from '../../interfaces/ComicParams'
+import { screenConfig } from '../../config'
 
 interface ComicsMoldal {
   title: string
@@ -35,6 +37,7 @@ export const ComicsModal = ({
   const [page, setPage] = useState(0)
   const [total, setTotal] = useState(null)
   const loadingRef = useRef(null)
+  const { width } = useWindowSize()
 
   const handleClickFavorite = (id: string, favorite: boolean): void => {
     !userState.favCharacters[characterId] &&
@@ -167,6 +170,20 @@ export const ComicsModal = ({
   useEffect(() => {
     localStorage.setItem('favCharacters', JSON.stringify(userState))
   }, [userState])
+
+  useEffect(() => {
+    const initialHeight = document.documentElement.scrollTop
+
+    if (width < screenConfig.desktop) {
+      document.documentElement.scrollTop = 0
+      document.body.style.overflowY = 'hidden'
+    }
+
+    return (): void => {
+      document.body.style.overflowY = 'auto'
+      document.documentElement.scrollTop = initialHeight
+    }
+  }, [width])
 
   return (
     <Modal title={title} onClose={onClose}>

@@ -1,19 +1,29 @@
 import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Link } from 'react-router-dom'
+import { media } from '../../theme/media'
 
-const lh = '1.4em'
+const lh = '1.35em'
 const maxLines = 3
 
 export const Container = styled.div`
   display: flex;
   height: 85px;
   margin: 20px 0;
+
+  ${media.mobile} {
+    margin-bottom: 20px;
+    height: auto;
+  }
 `
 
 export const CoverPageLink = styled(Link)`
   width: 75px;
   margin-right: 10px;
+
+  ${media.mobile} {
+    margin-right: 12px;
+  }
 `
 
 export const Image = styled.img`
@@ -23,20 +33,36 @@ export const Image = styled.img`
   &:hover {
     cursor: pointer;
   }
+
+  ${media.mobile} {
+    height: 120px;
+    width: 80px;
+  }
 `
 
 export const Content = styled.div`
   flex: 1;
+
+  width: 325px;
+
+  ${media.mobile} {
+    max-width: auto;
+  }
 `
 
 export const NavBar = styled.div`
   display: flex;
-  align-items: center;
+  align-items: flex-start;
 `
 
 export const Title = styled.h5`
   margin: 0 5px 0 0;
   color: ${(props): string => props.theme.content.textColor};
+
+  ${media.mobile} {
+    font-size: 13px;
+    margin-bottom: 5.5px;
+  }
 `
 
 export const StarIcon = styled(FontAwesomeIcon)`
@@ -49,7 +75,6 @@ export const StarIcon = styled(FontAwesomeIcon)`
 export const DescriptionContainer = styled.div`
   overflow: hidden;
   position: relative;
-  width: 325px;
 `
 
 export const Description = styled.p`
@@ -66,7 +91,7 @@ export const Ellipsis = styled.div`
   &::after {
     position: absolute;
     content: '...';
-    bottom: 3px;
+    bottom: 1.5px;
     right: 6px;
     color: ${(props): string => props.theme.content.textColor};
   }

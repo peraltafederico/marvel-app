@@ -60,10 +60,7 @@ export const Header = styled.div`
 `
 
 export const CloseIcon = styled(FontAwesomeIcon)`
-  color: ${(props): string => props.theme.content.iconColor};
   align-self: flex-end;
-  position: absolute;
-  top: 15px;
   &:hover {
     cursor: pointer;
   }

@@ -168,7 +168,7 @@ export const ComicsModal = ({
   }, [handleObserver, loadingRef])
 
   useEffect(() => {
-    localStorage.setItem('favCharacters', JSON.stringify(userState))
+    localStorage.setItem('user', JSON.stringify(userState))
   }, [userState])
 
   useEffect(() => {

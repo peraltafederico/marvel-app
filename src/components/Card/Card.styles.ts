@@ -35,7 +35,8 @@ export const Title = styled.h3`
   color: ${(props): string => props.theme.card.textColor};
   position: absolute;
   bottom: 0px;
-  left: 15px;
+  left: 10px;
+  right: 10px;
   &:hover {
     cursor: pointer;
   }

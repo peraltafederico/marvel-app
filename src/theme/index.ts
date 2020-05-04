@@ -13,6 +13,9 @@ export const theme = {
     body: {
       background: '#2f364a',
     },
+    modal: {
+      iconColor: 'rgba(255, 255, 255, 0.7)',
+    },
     content: {
       background: '#181b26',
       iconColor: 'rgba(255, 255, 255, 0.7)',
@@ -23,6 +26,9 @@ export const theme = {
   light: {
     body: {
       background: '#F0F8FF',
+    },
+    modal: {
+      iconColor: '#000',
     },
     content: {
       background: '#fff',

@@ -43,6 +43,10 @@ export const Layout: FC<Layout> = ({ children }: Layout) => {
     })
   }
 
+  useEffect(() => {
+    localStorage.setItem('app', JSON.stringify(appState))
+  }, [appState])
+
   return (
     <>
       <NavBar

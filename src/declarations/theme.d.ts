@@ -6,6 +6,9 @@ declare module 'styled-components' {
     body: {
       background: string
     }
+    modal: {
+      iconColor: string
+    }
     content: {
       background: string
       iconColor: string

@@ -50,7 +50,7 @@ export const Header = styled.div`
   position: sticky;
   top: 0;
   background-color: ${(props): string => props.theme.content.background};
-  padding: 25px 5px 20px 0;
+  padding: 15px 5px 15px 0;
   box-sizing: border-box;
   z-index: 9;
 
@@ -60,6 +60,7 @@ export const Header = styled.div`
 `
 
 export const CloseIcon = styled(FontAwesomeIcon)`
+  color: ${(props): string => props.theme.modal.iconColor};
   align-self: flex-end;
   &:hover {
     cursor: pointer;

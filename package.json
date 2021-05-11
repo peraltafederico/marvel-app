@@ -22,7 +22,7 @@
     "@types/styled-system": "^5.1.7",
     "axios": "^0.19.2",
     "immer": "^5.3.6",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "moment": "^2.24.0",
     "query-string": "^6.11.0",
     "querystring": "^0.2.0",

@@ -21,7 +21,7 @@
     "@types/styled-components": "^5.0.0",
     "@types/styled-system": "^5.1.7",
     "axios": "^0.19.2",
-    "immer": "^5.3.6",
+    "immer": "^9.0.6",
     "lodash": "^4.17.15",
     "moment": "^2.24.0",
     "query-string": "^6.11.0",
